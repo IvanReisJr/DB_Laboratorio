@@ -94,8 +94,8 @@ class DBAutomator:
         try:
             # 1. Cálculo dinâmico (Sysdate)
             today = datetime.now()
-            yesterday = today - timedelta(days=2)
-            #yesterday = today - timedelta(days=1)
+            #esterday = today - timedelta(days=2)
+            yesterday = today - timedelta(days=1)
             meses_pt = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
                         "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
             
