@@ -5,6 +5,7 @@ import glob
 from datetime import datetime, timedelta
 from playwright.sync_api import sync_playwright
 from src.config import Config
+from src.separacao import separar_lote_xml
 
 # Configuração de Logs
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -80,16 +81,19 @@ class DBAutomator:
     def step_5_filters_status(self):
         """Passo 5: Filtro de Status para 'Completo'"""
         logger.info("Selecionando filtro de Status: Completo")
+        # ID fornecido pelo usuário: StatusDropdown
         dropdown_selector = "[id*='StatusDropdown']"
         try:
             self.page.wait_for_selector(dropdown_selector, state="visible")
             self.page.click(dropdown_selector)
             
             # Aguarda a opção aparecer e clica
-            # Usando locator com verificação de visibilidade
-            option_locator = self.page.locator("div[role='option']:has-text('Completo'), span:has-text('Completo'), div:has-text('Completo')").first
-            option_locator.wait_for(state="visible", timeout=5000)
-            option_locator.click()
+            # Usando classe fornecida pelo usuário: dropdown-status-txt
+            logger.info("Aguardando opção 'Completo'...")
+            option_selector = ".dropdown-status-txt:has-text('Completo'), div[role='option']:has-text('Completo'), span:has-text('Completo')"
+            
+            self.page.wait_for_selector(option_selector, state="visible", timeout=5000)
+            self.page.click(option_selector)
             
             time.sleep(1.0)
             logger.info("Filtro 'Completo' aplicado com sucesso.")
@@ -107,7 +111,7 @@ class DBAutomator:
             # 1. Cálculo dinâmico (Sysdate)
             today = datetime.now()
             #esterday = today - timedelta(days=2)
-            yesterday = today - timedelta(days=5)
+            yesterday = today - timedelta(days=4)
             meses_pt = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
                         "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
             
@@ -181,37 +185,70 @@ class DBAutomator:
         """Passo 7: Pesquisa e Download do XML"""
         logger.info("Iniciando Passo 7: Pesquisa e Download do XML...")
         
+        # ID fornecido: Btn_Pesquisar
         logger.info("Clicando no botão 'Pesquisar' (#Btn_Pesquisar)...")
-        self.page.click("#Btn_Pesquisar")
+        self.page.click("[id*='Btn_Pesquisar']")
         
         logger.info("Aguardando carregamento (networkidle)...")
         self.page.wait_for_load_state("networkidle")
         
-        logger.info("Aguardando 3 segundos para renderização da grid...")
-        time.sleep(3.0) 
-
-        # Tenta localizar o checkbox (pode ser Checkbox3 ou outro ID dinâmico)
-        # Checkbox3 costuma ser o "Selecionar Todos" no header da grid
-        checkbox_selector = "input[type='checkbox'][id*='Checkbox3']" 
-        logger.info(f"Verificando visibilidade do checkbox com seletor: {checkbox_selector}")
+        # Aumentar o tempo de espera e adicionar verificação de tabela
+        logger.info("Aguardando renderização da tabela de resultados...")
         
         try:
-            # Força espera pelo checkbox se a tabela carregou
-            if self.page.locator("table").count() > 0:
-                 self.page.wait_for_selector(checkbox_selector, state="attached", timeout=5000)
+            # Espera por qualquer tabela ou mensagem de 'sem registros'
+            self.page.wait_for_selector("table", state="visible", timeout=10000)
+            logger.info("Tabela de resultados encontrada.")
+        except:
+            logger.warning("Nenhuma tabela encontrada após 10 segundos. Verificando mensagens de erro...")
+            if self.page.locator("text=Nenhum registro encontrado").is_visible():
+                logger.warning("Sistema retornou: 'Nenhum registro encontrado'.")
+                self.page.screenshot(path="debug_sem_registros.png")
+                return # Encerra o passo 7 se não há dados
+            else:
+                logger.warning("Tabela não apareceu e nenhuma mensagem de erro clara foi detectada.")
+                self.page.screenshot(path="debug_tabela_nao_encontrada.png")
 
-            if self.page.is_visible(checkbox_selector):
-                logger.info("Checkbox encontrado. Tentando clicar...")
+        # Tenta localizar o checkbox com múltiplos seletores, priorizando o ID fornecido
+        # Estratégia: Tentar IDs conhecidos (Checkbox3), depois seletores genéricos de header
+        possibles_selectors = [
+            "[id*='Checkbox3']",                             # ID fornecido: Checkbox3
+            "input[type='checkbox'][id*='Checkbox3']",       # Variação mais específica
+            "th input[type='checkbox']",                     # Checkbox em header de tabela
+            ".k-grid-header input[type='checkbox']",         # Checkbox em header Kendo UI (comum)
+            "thead input[type='checkbox']",                  # Checkbox em qualquer thead
+            "input[title='Selecionar todos']",               # Pelo título
+            "input[aria-label='Selecionar todos']",          # Por acessibilidade
+            "table input[type='checkbox']:nth-child(1)"      # Primeiro checkbox da tabela (força bruta)
+        ]
+        
+        checkbox_found = False
+        
+        for selector in possibles_selectors:
+            logger.info(f"Tentando encontrar checkbox com seletor: {selector}")
+            try:
+                if self.page.is_visible(selector):
+                    logger.info(f"Checkbox encontrado com seletor: {selector}")
+                    
+                    # Tenta clicar no input direto
+                    try:
+                        self.page.click(selector, timeout=2000)
+                        checkbox_found = True
+                        break # Sucesso, sai do loop
+                    except:
+                        # Se falhar (ex: coberto por label), clica via JS
+                        logger.warning(f"Clique direto em {selector} falhou. Tentando via JS...")
+                        self.page.evaluate("selector => { const el = document.querySelector(selector); if(el) el.click(); }", selector)
+                        checkbox_found = True
+                        break # Sucesso via JS, sai do loop
+            except:
+                continue # Tenta o próximo seletor
                 
-                # Tenta clicar no input direto
-                try:
-                    self.page.click(checkbox_selector, timeout=2000)
-                except:
-                    # Se falhar (ex: coberto por label), clica via JS ou no pai
-                    logger.warning("Clique direto falhou. Tentando via JS...")
-                    self.page.evaluate(f"document.querySelector('{checkbox_selector}').click()")
-                
-                logger.info("Iniciando processo de download (clicando em #BtnResultadoXML)...")
+        if checkbox_found:
+            logger.info("Checkbox acionado. Iniciando processo de download...")
+            try:
+                # ID fornecido: BtnResultadoXML
+                logger.info("Clicando em #BtnResultadoXML...")
                 with self.page.expect_download(timeout=60000) as download_info:
                     self.page.click("[id*='BtnResultadoXML']")
                 
@@ -222,14 +259,30 @@ class DBAutomator:
                 logger.info(f"Download salvo com sucesso.")
                 
                 # Validação extra do arquivo
-                self.validate_xml_download(os.path.join(os.path.expanduser("~"), "Downloads"))
-            else:
-                logger.warning("Checkbox não visível. Verifique se a pesquisa retornou resultados.")
-                self.page.screenshot(path="debug_step7_sem_registros.png")
+                arquivo_validado = self.validate_xml_download(os.path.join(os.path.expanduser("~"), "Downloads"))
                 
-        except Exception as e:
-            logger.warning(f"Erro ao tentar selecionar checkbox: {e}")
-            self.page.screenshot(path="erro_selecao_checkbox.png")
+                # Executa a separação do lote XML se o download for validado
+                if arquivo_validado:
+                    logger.info("Iniciando separação do lote XML...")
+                    separar_lote_xml(arquivo_validado)
+                else:
+                    logger.warning("Não foi possível separar o XML pois a validação do arquivo falhou.")
+            except Exception as e:
+                 logger.error(f"Erro durante o download ou processamento do arquivo: {e}")
+                 self.page.screenshot(path="erro_download_xml.png")
+
+        else:
+            logger.warning("Nenhum checkbox de seleção encontrado com os seletores testados.")
+            self.page.screenshot(path="debug_step7_checkbox_not_found.png")
+            
+            # Dump do HTML da tabela para análise se falhar tudo
+            try:
+                html_content = self.page.content()
+                with open("debug_page_source.html", "w", encoding="utf-8") as f:
+                    f.write(html_content)
+                logger.info("Dump da página salvo em debug_page_source.html para análise.")
+            except:
+                pass
 
 
     def validate_xml_download(self, directory, timeout=30):
@@ -252,17 +305,23 @@ class DBAutomator:
             self.start()
             # 1 a 3: Login
             self.step_1_access_login()
+
             self.step_2_first_auth()
+
             self.step_3_second_auth()
-            
+
             # 4: Navegação para Pacientes
             self.step_4_navigation()
             
             # 6: Ajuste da Data DE (Primeiro ajusta as datas conforme solicitado)
             self.step_6_adjust_date_de()
+            logger.info("Aguardando 5 segundos...")
+            time.sleep(5)
             
             # 5: Filtro de Status (Depois aplica o filtro de status 'Completo')
             self.step_5_filters_status()
+            logger.info("Aguardando 5 segundos...")
+            time.sleep(5)
             
             # 7: Pesquisa e Download
             self.step_7_search_and_download()
