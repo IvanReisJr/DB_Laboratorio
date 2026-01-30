@@ -2,6 +2,16 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [1.2.0] - 2026-01-30
+
+### Adicionado
+- **Testes Unitários**: Criação de suíte de testes com `pytest` para validar `separacao.py` e `xml_to_rtf.py`.
+- **Diagnóstico**: Relatório detalhado dos pontos de atenção do projeto (`diagnosis.md`).
+- **Dependências**: Adição de `pytest` ao ambiente de desenvolvimento.
+
+### Corrigido
+- **Conversão RTF**: Correção na codificação de caracteres especiais no módulo `xml_to_rtf.py`.
+
 ## [1.1.0] - 2026-01-26
 
 ### Adicionado

@@ -1,0 +1,34 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-9.0.2, pluggy-1.6.0 -- C:\Pietro\Projetos\DB_Laboratorio\venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Pietro\Projetos\DB_Laboratorio
+collecting ... collected 5 items
+
+tests/test_separacao.py::test_separar_lote_xml_cria_arquivos PASSED      [ 20%]
+tests/test_separacao.py::test_separar_lote_xml_arquivo_inexistente PASSED [ 40%]
+tests/test_xml_to_rtf.py::test_rtf_converter_escape PASSED               [ 60%]
+tests/test_xml_to_rtf.py::test_parse_xml_content_db_format PASSED        [ 80%]
+tests/test_xml_to_rtf.py::test_create_file_rtf FAILED                    [100%]
+
+================================== FAILURES ===================================
+____________________________ test_create_file_rtf _____________________________
+
+temp_dir = WindowsPath('C:/Users/pvplima/AppData/Local/Temp/pytest-of-pvplima/pytest-1/test_create_file_rtf0/xml_test')
+
+    def test_create_file_rtf(temp_dir):
+        output_path = temp_dir / "teste.rtf"
+        content = "Conte·do de Teste"
+        success = RTFConverter.create_file(content, str(output_path))
+    
+        assert success is True
+        assert output_path.exists()
+    
+        with open(output_path, "r", encoding="ascii") as f:
+            content_read = f.read()
+>           assert "Conte·do de Teste" in content_read
+E           assert 'Conte·do de Teste' in "{\\rtf1\\ansi\\ansicpg1252\\deff0\\nouicompat\\deflang1046{\\fonttbl{\\f0\\fnil\\fcharset0 Arial;}}{\\*\\generator XMLToRTFConverter 1.0;}\\viewkind4\\uc1\\pard\\sa200\\sl276\\slmult1\\f0\\fs22\\lang22 Conte\\'fado de Teste\\par}"
+
+tests\test_xml_to_rtf.py:57: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_xml_to_rtf.py::test_create_file_rtf - assert 'Conte·do de T...
+========================= 1 failed, 4 passed in 0.06s =========================
