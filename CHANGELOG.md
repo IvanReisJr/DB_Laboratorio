@@ -2,6 +2,18 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [1.3.0] - 2026-02-02
+
+### Adicionado
+- **Zoom de Interface**: Injeção automática de JavaScript para definir o zoom da página em 75% (`document.body.style.zoom = '0.75'`), mitigando erros de resolução.
+- **Logging em Arquivo**: Configuração para salvar todos os logs da execução no arquivo `log.txt` na raiz do projeto.
+
+## [1.3.0] - 2026-02-02
+
+### Adicionado
+- **Zoom de Interface**: Injeção automática de JavaScript para definir o zoom da página em 75% (`document.body.style.zoom = '0.75'`), mitigando erros de resolução.
+- **Logging em Arquivo**: Configuração para salvar todos os logs da execução no arquivo `log.txt` na raiz do projeto.
+
 ## [1.2.0] - 2026-01-30
 
 ### Adicionado

@@ -8,7 +8,14 @@ from src.config import Config
 from src.separacao import separar_lote_xml
 
 # Configuração de Logs
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("log.txt", mode='w', encoding='utf-8'),
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
 
 class DBAutomator:
@@ -30,6 +37,8 @@ class DBAutomator:
         """Passo 1: Acesso ao Portal"""
         logger.info(f"Navegando para: {Config.BASE_URL_LOGIN}")
         self.page.goto(Config.BASE_URL_LOGIN)
+        logger.info("Aplicando Zoom de 75%...")
+        self.page.evaluate("document.body.style.zoom = '0.75'")
 
     def step_2_first_auth(self):
         """Passo 2: Primeira Autenticação (Serviço Solicitante)"""
@@ -60,6 +69,8 @@ class DBAutomator:
         try:
             # Aguarda a URL de Home carregar totalmente
             self.page.wait_for_url(Config.BASE_URL_HOME, timeout=60000)
+            logger.info("Reaplicando Zoom de 75% na Home...")
+            self.page.evaluate("document.body.style.zoom = '0.75'")
             
             id_selector = "[id*='NavItem_MeusPacientes']"
             
