@@ -2,6 +2,13 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [1.3.1] - 2026-02-02
+### Adicionado
+- Estratégia de seleção de checkbox por ID específico (`#Checkbox3`).
+- Correção na validação de arquivos baixados (verificação direta de path).
+- Remoção da injeção de Zoom 75% (retorno ao padrão).
+- Garantia de inicialização do navegador maximizado (`--start-maximized`).
+
 ## [1.3.0] - 2026-02-02
 
 ### Adicionado
