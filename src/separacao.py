@@ -3,17 +3,42 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 import logging
 
+import json
+
 logger = logging.getLogger(__name__)
+
+HISTORY_FILE = "processed_exams.json"
+
+def load_history():
+    if os.path.exists(HISTORY_FILE):
+        try:
+            with open(HISTORY_FILE, 'r') as f:
+                return set(json.load(f))
+        except:
+            return set()
+    return set()
+
+def save_history(history):
+    try:
+        with open(HISTORY_FILE, 'w') as f:
+            json.dump(list(history), f)
+    except Exception as e:
+        logger.error(f"Erro ao salvar histórico: {e}")
 
 def separar_lote_xml(caminho_arquivo):
     """
     Realiza o parsing de um XML de lote e separa em arquivos individuais por atendimento.
+    Evita reprocessar atendimentos já salvos no histórico.
     """
     if not caminho_arquivo or not os.path.exists(caminho_arquivo):
         logger.error(f"Arquivo não encontrado para separação: {caminho_arquivo}")
         return
 
     try:
+        # Carrega histórico de duplicatas
+        processed_ids = load_history()
+        logger.info(f"Histórico carregado com {len(processed_ids)} atendimentos processados.")
+
         # Carrega o XML mantendo o encoding original do laboratório
         tree = ET.parse(caminho_arquivo)
         root = tree.getroot()
@@ -30,12 +55,18 @@ def separar_lote_xml(caminho_arquivo):
 
         sysdate = datetime.now().strftime("%Y%m%d%H%M%S")
         count = 0
+        new_items = False
 
         # Itera sobre cada registro de atendimento
         for resultado in lista_resultados.findall('ct_Resultado_v1'):
             atendimento = resultado.findtext('NumeroAtendimentoApoiado')
             
             if not atendimento:
+                continue
+
+            # Verificação de Duplicidade
+            if atendimento in processed_ids:
+                logger.info(f"Ignorando duplicado: {atendimento}")
                 continue
 
             # Reconstrói a estrutura XML exigida
@@ -57,10 +88,17 @@ def separar_lote_xml(caminho_arquivo):
                 f.write(b'<?xml version="1.0" encoding="iso-8859-1"?>\n')
                 nova_tree.write(f, encoding="iso-8859-1", xml_declaration=False)
             
+            # Atualiza memória e flag
+            processed_ids.add(atendimento)
             count += 1
+            new_items = True
             logger.info(f"Gerado: {nome_saida}")
 
-        logger.info(f"Sucesso: {count} arquivos individuais criados.")
+        if new_items:
+            save_history(processed_ids)
+            logger.info("Histórico atualizado.")
+
+        logger.info(f"Sucesso: {count} novos arquivos individuais criados.")
 
     except Exception as e:
         logger.error(f"Falha crítica na separação do XML: {e}")

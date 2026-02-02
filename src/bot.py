@@ -2,6 +2,7 @@ import time
 import logging
 import os
 import glob
+import shutil
 from datetime import datetime, timedelta
 from playwright.sync_api import sync_playwright
 from src.config import Config
@@ -276,11 +277,17 @@ class DBAutomator:
                         used_selector = selector
                         break
                     else:
-                        logger.warning(f"Clicou em {selector} mas status não mudou. Forçando JS...")
-                        self.page.evaluate("el => el.checked = true", loc.element_handle())
+                        logger.warning(f"Clicou em {selector} mas status não mudou. Forçando JS com eventos...")
+                        self.page.evaluate("""el => {
+                            el.checked = true;
+                            el.dispatchEvent(new Event('change', { bubbles: true }));
+                            el.dispatchEvent(new Event('input', { bubbles: true }));
+                            el.dispatchEvent(new Event('click', { bubbles: true }));
+                        }""", loc.element_handle())
+                        
                         time.sleep(0.5)
                         if loc.is_checked():
-                            logger.info("Checkbox marcado via JS.")
+                            logger.info("Checkbox marcado via JS (com eventos).")
                             checkbox_found = True
                             break
             except Exception as e_check:
@@ -370,6 +377,19 @@ class DBAutomator:
                             logger.info("Iniciando separação automática do lote...")
                             separar_lote_xml(final_path)
                             logger.info("Separação concluída.")
+                            
+                            # Movimentação do XML Pai para pasta Anual
+                            try:
+                                current_year = datetime.now().strftime('%Y')
+                                backup_dir = os.path.join(os.getcwd(), current_year)
+                                os.makedirs(backup_dir, exist_ok=True)
+                                
+                                backup_path = os.path.join(backup_dir, os.path.basename(final_path))
+                                shutil.move(final_path, backup_path)
+                                logger.info(f"Arquivo pai movido para backup: {backup_path}")
+                            except Exception as mv_err:
+                                logger.error(f"Erro ao mover arquivo pai para backup: {mv_err}")
+                                
                         except Exception as sep_err:
                             logger.error(f"Erro na separação do lote: {sep_err}")
                             

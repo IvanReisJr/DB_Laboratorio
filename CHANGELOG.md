@@ -13,6 +13,12 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - Reversão do filtro de data para 4 dias retroativos (para fins de desenvolvimento).
 - **Segurança**: Adição de `*.xml` ao `.gitignore` e remoção de arquivos XML sensíveis do repositório.
 
+## [1.4.0] - 2026-02-02
+### Adicionado
+- **Deduplicação Inteligente**: Sistema que evita o download/processamento duplicado de exames já existentes, utilizando um histórico local (`processed_exams.json`).
+- **Organização de Backups**: Movimentação automática do arquivo XML "Pai" (Lote) para uma pasta anual (ex: `2026/`) após o processamento, mantendo a pasta de mês limpa.
+- **Robustez de UI**: Melhoria na interação com checkboxes via JavaScript, disparando eventos (`change`, `input`, `click`) para garantir habilitação de botões dependentes.
+
 ## [1.3.0] - 2026-02-02
 
 ### Adicionado
