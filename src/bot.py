@@ -415,11 +415,14 @@ class DBAutomator:
                             
                     else:
                         logger.error("Falha na validação do arquivo XML.")
+                        raise Exception("Arquivo XML baixado é inválido ou vazio.")
                         
                 except Exception as dl_err:
                     logger.error(f"Erro ao salvar/processar o download: {dl_err}")
+                    raise Exception("Falha no processamento do download.")
             else:
                 logger.error("TODAS as tentativas de download falharam.")
+                raise Exception("Não foi possível iniciar o download após todas as tentativas.")
         else:
             logger.warning("Nenhum checkbox de seleção encontrado com os seletores testados.")
             self.page.screenshot(path="debug_step7_checkbox_not_found.png")
@@ -480,11 +483,19 @@ class DBAutomator:
             time.sleep(5)
             
             # 7: Pesquisa e Download
+            # 7: Pesquisa e Download
             self.step_7_search_and_download()
+            
+            return True # Sucesso
             
         except Exception as e:
             logger.critical(f"Falha na automação: {e}")
+            return False # Falha
         finally:
+            if self.browser:
+                self.browser.close()
+            if self.playwright:
+                self.playwright.stop()
             logger.info("Processo encerrado.")
 
 if __name__ == "__main__":

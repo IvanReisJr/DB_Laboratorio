@@ -15,6 +15,10 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
 - **Segurança**: Adição de `*.xml` ao `.gitignore` e remoção de arquivos XML sensíveis do repositório.
 
+## [1.5.1] - 2026-02-02
+### Adicionado
+- **Resiliência (Global Retry Live)**: Implementação de um supervisor (`main.py`) que reinicia automaticamente o robô em caso de falhas críticas (timeouts, erros de renderização), com limite de 3 tentativas e fallback seguro.
+
 ## [1.5.0] - 2026-02-02
 ### Adicionado
 - **Extração de Dados Limpos**: Implementação do módulo `cleaner.py` que converte os dados brutos do XML (exame, metodologia e resultados) para arquivos TXT simplificados, facilitando a leitura e auditoria.
