@@ -15,6 +15,10 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
 - **Segurança**: Adição de `*.xml` ao `.gitignore` e remoção de arquivos XML sensíveis do repositório.
 
+## [1.4.2] - 2026-02-02
+### Segurança
+- **Hardening de Credenciais**: Substituição de credenciais hardcoded em `config.py` pelo uso seguro de variáveis de ambiente (`.env`), utilizando a biblioteca `python-dotenv`.
+
 ## [1.4.1] - 2026-02-02
 ### Corrigido
 - **Interface**: Implementação de maximização forçada da janela do navegador utilizando chamadas diretas à API do Windows (`ctypes`), resolvendo inconsistências onde o argumento `--start-maximized` falhava.
