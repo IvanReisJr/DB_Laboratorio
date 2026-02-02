@@ -115,21 +115,21 @@ class DBAutomator:
 
     def step_6_adjust_date_de(self):
         """
-        Passo 6: Ajuste atemporal com clique forçado para garantir abertura do calendário.
+        Passo 6: Ajuste atemporal com clique forçado, ajustado para retroagir 4 dias.
         """
-        logger.info("Iniciando ajuste atemporal do calendário com clique de ativação...")
+        logger.info("Iniciando ajuste atemporal do calendário (retroagindo 4 dias)...")
         try:
-            # 1. Cálculo dinâmico (Sysdate)
+            # 1. Cálculo: Retroage 4 dias
             today = datetime.now()
-            #esterday = today - timedelta(days=2)
-            yesterday = today - timedelta(days=4)
+            target_date = today - timedelta(days=4)
+            
             meses_pt = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
                         "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
             
-            label_alvo = f"{meses_pt[yesterday.month - 1]} {yesterday.day}, {yesterday.year}"
-            index_mes_alvo = str(yesterday.month - 1)
+            label_alvo = f"{meses_pt[target_date.month - 1]} {target_date.day}, {target_date.year}"
+            index_mes_alvo = str(target_date.month - 1)
             
-            logger.info(f"Alvo dinâmico: {label_alvo}")
+            logger.info(f"Alvo dinâmico (4 dias atrás): {label_alvo}")
 
             # 2. Localização e Ativação
             wrapper_id = "#b8-Datepicker"
@@ -146,24 +146,22 @@ class DBAutomator:
             # 3. Limpeza de segurança (API do componente)
             self.page.evaluate("(id) => { const el = document.getElementById(id); if (el && el._flatpickr) el._flatpickr.clear(); }", input_id)
             
-            # 4. Tenta abrir via Teclado, se não abrir em 2s, clica no ícone do calendário
+            # 4. Tenta abrir via Teclado
             self.page.keyboard.press("ArrowDown")
-            
             try:
-                # Espera curta para verificar se abriu via teclado
                 self.page.wait_for_selector(".flatpickr-calendar.open", state="visible", timeout=3000)
             except:
                 logger.warning("Calendário não abriu com ArrowDown. Tentando clique no ícone...")
-                # Clica no input novamente ou no wrapper para forçar
                 input_visivel.click()
                 self.page.wait_for_selector(".flatpickr-calendar.open", state="visible", timeout=10000)
 
             time.sleep(1.0) # Estabilização
 
-            # 5. Sincronização de Ano e Mês (Ctrl + Setas)
-            self.page.keyboard.press("Control+ArrowUp") # Garante 2026
+            # 5. Sincronização de Ano e Mês
+            self.page.keyboard.press("Control+ArrowUp") # Garante Ano Atual (assumindo que o calendário abre perto dele)
             time.sleep(0.5)
 
+            # Navega até o mês correto
             for _ in range(12):
                 mes_atual = self.page.evaluate("document.querySelector('.flatpickr-calendar.open .flatpickr-monthDropdown-months').value")
                 if mes_atual == index_mes_alvo:
@@ -171,21 +169,19 @@ class DBAutomator:
                 self.page.keyboard.press("Control+ArrowRight")
                 time.sleep(0.3)
 
-            # 6. Seleção do Dia Anterior
-            # Primeiro tenta localizar o elemento exato pelo label calculado
+            # 6. Seleção do Dia
             selector_dia = f".flatpickr-calendar.open span.flatpickr-day[aria-label='{label_alvo}']"
             
             if self.page.is_visible(selector_dia):
-                logger.info(f"Elemento encontrado: {label_alvo}. Clicando...")
+                logger.info(f"Elemento de dia encontrado: {label_alvo}. Clicando...")
                 self.page.click(selector_dia)
             else:
-                logger.warning(f"Label '{label_alvo}' não detectado. Usando navegação por setas (ArrowLeft).")
-                self.page.keyboard.press("ArrowLeft")
-                time.sleep(0.5)
+                logger.warning(f"Label '{label_alvo}' não detectado. Usando estratégia de 'Enter' no dia focado (Hoje).")
+                # Se for hoje, muitas vezes o calendário já foca no dia atual.
                 self.page.keyboard.press("Enter")
             
             time.sleep(1.0)
-            logger.info("Data 'DE' ajustada com sucesso.")
+            logger.info("Data 'DE' ajustada para HOJE com sucesso.")
 
         except Exception as e:
             logger.error(f"Erro ao abrir/ajustar calendário: {e}")
@@ -198,62 +194,98 @@ class DBAutomator:
         
         # ID fornecido: Btn_Pesquisar
         logger.info("Clicando no botão 'Pesquisar' (#Btn_Pesquisar)...")
-        self.page.click("[id*='Btn_Pesquisar']")
-        
+        # Força clique JS para garantir
+        try:
+             self.page.click("[id*='Btn_Pesquisar']", timeout=5000)
+        except:
+             self.page.evaluate("document.querySelector(\"[id*='Btn_Pesquisar']\").click()")
+
         logger.info("Aguardando carregamento (networkidle)...")
         self.page.wait_for_load_state("networkidle")
         
-        # Aumentar o tempo de espera e adicionar verificação de tabela
         logger.info("Aguardando renderização da tabela de resultados...")
-        
         try:
-            # Espera por qualquer tabela ou mensagem de 'sem registros'
             self.page.wait_for_selector("table", state="visible", timeout=10000)
             logger.info("Tabela de resultados encontrada.")
+            
+            # Verificação de Conteúdo da Tabela
+            rows = self.page.locator("tbody tr")
+            # Aguarda um pouco para garantir que as linhas renderizaram (OutSystems pode renderizar a tabela e depois os dados)
+            try:
+                self.page.wait_for_selector("tbody tr", timeout=5000)
+            except:
+                pass # Pode ser que não tenha linhas mesmo
+                
+            count = rows.count()
+            if count == 0:
+                # Verifica se há mensagem de "Nenhum registro"
+                if self.page.locator("text=Nenhum registro encontrado").is_visible():
+                    logger.warning("Sistema retornou: 'Nenhum registro encontrado'. Encerrando passo.")
+                    return
+                else:
+                    logger.warning("Tabela encontrada, mas com 0 linhas. Verifique se o filtro retornou dados.")
+                    # Tira screenshot para evidência
+                    self.page.screenshot(path="debug_tabela_vazia.png")
+                    return # Não há o que baixar
+            
+            logger.info(f"Encontrados {count} registros na tabela.")
+            
         except:
-            logger.warning("Nenhuma tabela encontrada após 10 segundos. Verificando mensagens de erro...")
+            logger.warning("Nenhuma tabela encontrada. Verificando se há resultados...")
             if self.page.locator("text=Nenhum registro encontrado").is_visible():
                 logger.warning("Sistema retornou: 'Nenhum registro encontrado'.")
-                self.page.screenshot(path="debug_sem_registros.png")
-                return # Encerra o passo 7 se não há dados
+                return
             else:
                 logger.warning("Tabela não apareceu e nenhuma mensagem de erro clara foi detectada.")
                 self.page.screenshot(path="debug_tabela_nao_encontrada.png")
+                return
 
-        # Tenta localizar o checkbox com múltiplos seletores, priorizando o ID fornecido
-        # Estratégia: Tentar IDs conhecidos (Checkbox3), depois seletores genéricos de header
+        # Tenta localizar o checkbox com múltiplos seletores
         possibles_selectors = [
-            "#Checkbox3",                                    # ID específico identificado pelo usuário
-            "xpath=/html/body/div[1]/div/div/div[1]/div[1]/div[3]/div/div/div[2]/div/div[3]/div[1]/div/div[1]/span/input", # XPath do usuário
-            "thead input[type='checkbox']",                  # Checkbox em qualquer thead
-            "input[title='Selecionar todos']",               # Pelo título
-            "input[aria-label='Selecionar todos']",          # Por acessibilidade
-            "table input[type='checkbox']:nth-child(1)",     # Primeiro checkbox da tabela (força bruta)
-            "input[id*='Checkbox']",                         # ID dinâmico comum
-            ".OSFillParent input[type='checkbox']"           # Classe comum OutSystems
+            "#Checkbox3",                                    # Prioridade máxima
+            "xpath=/html/body/div[1]/div/div/div[1]/div[1]/div[3]/div/div/div[2]/div/div[3]/div[1]/div/div[1]/span/input",
+            "thead input[type='checkbox']",
+            "input[title='Selecionar todos']",
+            "table input[type='checkbox']:nth-child(1)",
+            "input[id*='Checkbox']",
+            ".OSFillParent input[type='checkbox']"
         ]
         
         checkbox_found = False
+        used_selector = None
         
         for selector in possibles_selectors:
-            logger.info(f"Tentando encontrar checkbox com seletor: {selector}")
+            # logger.debug(f"Testando seletor: {selector}") # Reduzido para debug para limpar log
             try:
-                if self.page.is_visible(selector):
-                    logger.info(f"Checkbox encontrado com seletor: {selector}")
-                    
-                    # Tenta clicar no input direto
+                # Usa verificação rápida sem esperar timeout de 30s se não existir
+                if self.page.locator(selector).count() > 0 and self.page.is_visible(selector):
+                    logger.info(f"Checkbox VSÍVEL encontrado: {selector}")
+                    # Tenta clicar
                     try:
                         self.page.click(selector, timeout=2000)
-                        checkbox_found = True
-                        break # Sucesso, sai do loop
                     except:
-                        # Se falhar (ex: coberto por label), clica via JS
-                        logger.warning(f"Clique direto em {selector} falhou. Tentando via JS...")
-                        self.page.evaluate("selector => { const el = document.querySelector(selector); if(el) el.click(); }", selector)
+                        self.page.evaluate(f"document.querySelector('{selector.replace('xpath=', '')}').click()")
+                    
+                    time.sleep(0.5)
+                    
+                    # Validação
+                    loc = self.page.locator(selector).first
+                    if loc.is_checked():
+                        logger.info(f"Checkbox CONFIRMADO como marcado: {selector}")
                         checkbox_found = True
-                        break # Sucesso via JS, sai do loop
-            except:
-                continue # Tenta o próximo seletor
+                        used_selector = selector
+                        break
+                    else:
+                        logger.warning(f"Clicou em {selector} mas status não mudou. Forçando JS...")
+                        self.page.evaluate("el => el.checked = true", loc.element_handle())
+                        time.sleep(0.5)
+                        if loc.is_checked():
+                            logger.info("Checkbox marcado via JS.")
+                            checkbox_found = True
+                            break
+            except Exception as e_check:
+                logger.warning(f"Erro ao validar checkbox {selector}: {e_check}")
+                continue
                 
         if checkbox_found:
             logger.info("Checkbox acionado. Iniciando processo de download...")
@@ -318,8 +350,12 @@ class DBAutomator:
                     logger.info(f"Arquivo baixado temporariamente em: {path}")
                     
                     # Nome do arquivo final
+                    subfolder = datetime.now().strftime('%Y%m')
+                    download_dir = os.path.join(os.getcwd(), subfolder)
+                    os.makedirs(download_dir, exist_ok=True)
+                    
                     final_name = f"lote_exames_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xml"
-                    final_path = os.path.join(os.getcwd(), final_name)
+                    final_path = os.path.join(download_dir, final_name)
                     
                     # Salva o arquivo
                     download.save_as(final_path)

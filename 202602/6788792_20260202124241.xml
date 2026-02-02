@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ct_LoteResultados_v1><NumeroLote>20260202124248</NumeroLote><CodigoApoiado>297419</CodigoApoiado><ListaResultados><ct_Resultado_v1>
+      <NumeroAtendimentoApoiado>6788792</NumeroAtendimentoApoiado>
+      <NumeroAtendimentoDB>1386088411</NumeroAtendimentoDB>
+      <RGPacienteApoiado />
+      <RGPacienteDB>6197828812</RGPacienteDB>
+      <ListaResultadoProcedimentos>
+        <ct_ResultadoProcedimentos_v1>
+          <CodigoExameDB>ESTRT</CodigoExameDB>
+          <VersaoLaudo>17/06/2024 00:00:00</VersaoLaudo>
+          <DescricaoMetodologia>ENZIMAIMUNOENSAIO</DescricaoMetodologia>
+          <DescricaoRegiaoColeta />
+          <ListaResultadoTexto>
+            <ct_ResultadoTexto_v1>
+              <CodigoParametroDB>ESTRT</CodigoParametroDB>
+              <DescricaoParametrosDB>ESTRIOL TOTAL - E3</DescricaoParametrosDB>
+              <ValorResultado>1,20</ValorResultado>
+              <UnidadeMedida>ng/mL</UnidadeMedida>
+              <ValorReferencia>Homens:  0,37 - 4,25 ng/mL
+
+Mulheres não gestantes: 0,63 - 4,56 ng/mL
+
+Gestantes:
+Semana 17 - 20: 5,49 - 25,30 ng/mL
+Semana 21 - 24: 6,73 - 41,14 ng/mL
+Semana 25 - 28: 13,40 - 50,28 ng/mL
+Semana 29 - 32: 17,49 - 54,91 ng/mL
+Semana 33 - 36: 18,52 - 61,62 ng/mL
+Semana 37 - 41: 21,97 - 84,83 ng/mL</ValorReferencia>
+            </ct_ResultadoTexto_v1>
+          </ListaResultadoTexto>
+          <ListaResultadoImagem />
+          <DataHoraLiberacaoClinica>31/01/2026 12:09:00</DataHoraLiberacaoClinica>
+          <NomeLiberadorClinico>CRF/SP: 85.471 Dr. Henry Celso Machado Maciel</NomeLiberadorClinico>
+          <Observacao1 />
+          <Observacao2 />
+          <Observacao3 />
+          <Observacao4 />
+          <Observacao5 />
+          <Material>SORO CONGELADO</Material>
+        </ct_ResultadoProcedimentos_v1>
+      </ListaResultadoProcedimentos>
+    </ct_Resultado_v1>
+    </ListaResultados></ct_LoteResultados_v1>

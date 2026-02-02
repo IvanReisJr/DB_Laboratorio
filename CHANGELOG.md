@@ -8,6 +8,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - Correção na validação de arquivos baixados (verificação direta de path).
 - Remoção da injeção de Zoom 75% (retorno ao padrão).
 - Garantia de inicialização do navegador maximizado (`--start-maximized`).
+- Adição de lógica para verificar se a tabela está vazia antes de buscar checkboxes.
+- Melhoria na robustez da seleção de checkbox utilizando `.first` e tratamento de erros de API.
+- Reversão do filtro de data para 4 dias retroativos (para fins de desenvolvimento).
 
 ## [1.3.0] - 2026-02-02
 

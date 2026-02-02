@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ct_LoteResultados_v1>
+  <NumeroLote>20260202124248</NumeroLote>
+  <CodigoApoiado>297419</CodigoApoiado>
+  <ListaResultados>
+    <ct_Resultado_v1>
+      <NumeroAtendimentoApoiado>6788792</NumeroAtendimentoApoiado>
+      <NumeroAtendimentoDB>1386088411</NumeroAtendimentoDB>
+      <RGPacienteApoiado/>
+      <RGPacienteDB>6197828812</RGPacienteDB>
+      <ListaResultadoProcedimentos>
+        <ct_ResultadoProcedimentos_v1>
+          <CodigoExameDB>ESTRT</CodigoExameDB>
+          <VersaoLaudo>17/06/2024 00:00:00</VersaoLaudo>
+          <DescricaoMetodologia>ENZIMAIMUNOENSAIO</DescricaoMetodologia>
+          <DescricaoRegiaoColeta/>
+          <ListaResultadoTexto>
+            <ct_ResultadoTexto_v1>
+              <CodigoParametroDB>ESTRT</CodigoParametroDB>
+              <DescricaoParametrosDB>ESTRIOL TOTAL - E3</DescricaoParametrosDB>
+              <ValorResultado>1,20</ValorResultado>
+              <UnidadeMedida>ng/mL</UnidadeMedida>
+              <ValorReferencia>Homens:  0,37 - 4,25 ng/mL
+
+Mulheres não gestantes: 0,63 - 4,56 ng/mL
+
+Gestantes:
+Semana 17 - 20: 5,49 - 25,30 ng/mL
+Semana 21 - 24: 6,73 - 41,14 ng/mL
+Semana 25 - 28: 13,40 - 50,28 ng/mL
+Semana 29 - 32: 17,49 - 54,91 ng/mL
+Semana 33 - 36: 18,52 - 61,62 ng/mL
+Semana 37 - 41: 21,97 - 84,83 ng/mL</ValorReferencia>
+            </ct_ResultadoTexto_v1>
+          </ListaResultadoTexto>
+          <ListaResultadoImagem/>
+          <DataHoraLiberacaoClinica>31/01/2026 12:09:00</DataHoraLiberacaoClinica>
+          <NomeLiberadorClinico>CRF/SP: 85.471 Dr. Henry Celso Machado Maciel</NomeLiberadorClinico>
+          <Observacao1/>
+          <Observacao2/>
+          <Observacao3/>
+          <Observacao4/>
+          <Observacao5/>
+          <Material>SORO CONGELADO</Material>
+        </ct_ResultadoProcedimentos_v1>
+      </ListaResultadoProcedimentos>
+    </ct_Resultado_v1>
+    <ct_Resultado_v1>
+      <NumeroAtendimentoApoiado>6789815</NumeroAtendimentoApoiado>
+      <NumeroAtendimentoDB>1386089067</NumeroAtendimentoDB>
+      <RGPacienteApoiado/>
+      <RGPacienteDB>6197834286</RGPacienteDB>
+      <ListaResultadoProcedimentos>
+        <ct_ResultadoProcedimentos_v1>
+          <CodigoExameDB>MONOC</CodigoExameDB>
+          <VersaoLaudo>14/05/2013 00:00:00</VersaoLaudo>
+          <DescricaoMetodologia>AGLUTINAÇÃO</DescricaoMetodologia>
+          <DescricaoRegiaoColeta/>
+          <ListaResultadoTexto>
+            <ct_ResultadoTexto_v1>
+              <CodigoParametroDB>RES1</CodigoParametroDB>
+              <DescricaoParametrosDB>MONONUCLEOSE - ANTICORPOS HETERÓFILOS</DescricaoParametrosDB>
+              <ValorResultado>Reagente 1/4</ValorResultado>
+              <UnidadeMedida/>
+              <ValorReferencia>Não reagente: ausência de anticorpos
+Reagente....: presença de anticorpos</ValorReferencia>
+            </ct_ResultadoTexto_v1>
+          </ListaResultadoTexto>
+          <ListaResultadoImagem/>
+          <DataHoraLiberacaoClinica>30/01/2026 11:24:00</DataHoraLiberacaoClinica>
+          <NomeLiberadorClinico>CRBM-1: 49306 Dra. Yasira Del Carmen Zabaleta Osorio Alves</NomeLiberadorClinico>
+          <Observacao1/>
+          <Observacao2/>
+          <Observacao3/>
+          <Observacao4/>
+          <Observacao5/>
+          <Material>SORO</Material>
+        </ct_ResultadoProcedimentos_v1>
+      </ListaResultadoProcedimentos>
+    </ct_Resultado_v1>
+    <ct_Resultado_v1>
+      <NumeroAtendimentoApoiado>6791908</NumeroAtendimentoApoiado>
+      <NumeroAtendimentoDB>1386355170</NumeroAtendimentoDB>
+      <RGPacienteApoiado/>
+      <RGPacienteDB>6199966597</RGPacienteDB>
+      <ListaResultadoProcedimentos>
+        <ct_ResultadoProcedimentos_v1>
+          <CodigoExameDB>MONOC</CodigoExameDB>
+          <VersaoLaudo>14/05/2013 00:00:00</VersaoLaudo>
+          <DescricaoMetodologia>AGLUTINAÇÃO</DescricaoMetodologia>
+          <DescricaoRegiaoColeta/>
+          <ListaResultadoTexto>
+            <ct_ResultadoTexto_v1>
+              <CodigoParametroDB>RES1</CodigoParametroDB>
+              <DescricaoParametrosDB>MONONUCLEOSE - ANTICORPOS HETERÓFILOS</DescricaoParametrosDB>
+              <ValorResultado>Não reagente</ValorResultado>
+              <UnidadeMedida/>
+              <ValorReferencia>Não reagente: ausência de anticorpos
+Reagente....: presença de anticorpos</ValorReferencia>
+            </ct_ResultadoTexto_v1>
+          </ListaResultadoTexto>
+          <ListaResultadoImagem/>
+          <DataHoraLiberacaoClinica>02/02/2026 11:49:00</DataHoraLiberacaoClinica>
+          <NomeLiberadorClinico>CRBM-1: 49306 Dra. Yasira Del Carmen Zabaleta Osorio Alves</NomeLiberadorClinico>
+          <Observacao1/>
+          <Observacao2/>
+          <Observacao3/>
+          <Observacao4/>
+          <Observacao5/>
+          <Material>SORO</Material>
+        </ct_ResultadoProcedimentos_v1>
+      </ListaResultadoProcedimentos>
+    </ct_Resultado_v1>
+    <ct_Resultado_v1>
+      <NumeroAtendimentoApoiado>6791911</NumeroAtendimentoApoiado>
+      <NumeroAtendimentoDB>1386355365</NumeroAtendimentoDB>
+      <RGPacienteApoiado/>
+      <RGPacienteDB>6199968271</RGPacienteDB>
+      <ListaResultadoProcedimentos>
+        <ct_ResultadoProcedimentos_v1>
+          <CodigoExameDB>MONOC</CodigoExameDB>
+          <VersaoLaudo>14/05/2013 00:00:00</VersaoLaudo>
+          <DescricaoMetodologia>AGLUTINAÇÃO</DescricaoMetodologia>
+          <DescricaoRegiaoColeta/>
+          <ListaResultadoTexto>
+            <ct_ResultadoTexto_v1>
+              <CodigoParametroDB>RES1</CodigoParametroDB>
+              <DescricaoParametrosDB>MONONUCLEOSE - ANTICORPOS HETERÓFILOS</DescricaoParametrosDB>
+              <ValorResultado>Não reagente</ValorResultado>
+              <UnidadeMedida/>
+              <ValorReferencia>Não reagente: ausência de anticorpos
+Reagente....: presença de anticorpos</ValorReferencia>
+            </ct_ResultadoTexto_v1>
+          </ListaResultadoTexto>
+          <ListaResultadoImagem/>
+          <DataHoraLiberacaoClinica>02/02/2026 11:49:00</DataHoraLiberacaoClinica>
+          <NomeLiberadorClinico>CRBM-1: 49306 Dra. Yasira Del Carmen Zabaleta Osorio Alves</NomeLiberadorClinico>
+          <Observacao1/>
+          <Observacao2/>
+          <Observacao3/>
+          <Observacao4/>
+          <Observacao5/>
+          <Material>SORO</Material>
+        </ct_ResultadoProcedimentos_v1>
+      </ListaResultadoProcedimentos>
+    </ct_Resultado_v1>
+    <ct_Resultado_v1>
+      <NumeroAtendimentoApoiado>6790505</NumeroAtendimentoApoiado>
+      <NumeroAtendimentoDB>1386355610</NumeroAtendimentoDB>
+      <RGPacienteApoiado/>
+      <RGPacienteDB>6199970195</RGPacienteDB>
+      <ListaResultadoProcedimentos>
+        <ct_ResultadoProcedimentos_v1>
+          <CodigoExameDB>MONOC</CodigoExameDB>
+          <VersaoLaudo>14/05/2013 00:00:00</VersaoLaudo>
+          <DescricaoMetodologia>AGLUTINAÇÃO</DescricaoMetodologia>
+          <DescricaoRegiaoColeta/>
+          <ListaResultadoTexto>
+            <ct_ResultadoTexto_v1>
+              <CodigoParametroDB>RES1</CodigoParametroDB>
+              <DescricaoParametrosDB>MONONUCLEOSE - ANTICORPOS HETERÓFILOS</DescricaoParametrosDB>
+              <ValorResultado>Não reagente</ValorResultado>
+              <UnidadeMedida/>
+              <ValorReferencia>Não reagente: ausência de anticorpos
+Reagente....: presença de anticorpos</ValorReferencia>
+            </ct_ResultadoTexto_v1>
+          </ListaResultadoTexto>
+          <ListaResultadoImagem/>
+          <DataHoraLiberacaoClinica>02/02/2026 11:49:00</DataHoraLiberacaoClinica>
+          <NomeLiberadorClinico>CRBM-1: 49306 Dra. Yasira Del Carmen Zabaleta Osorio Alves</NomeLiberadorClinico>
+          <Observacao1/>
+          <Observacao2/>
+          <Observacao3/>
+          <Observacao4/>
+          <Observacao5/>
+          <Material>SORO</Material>
+        </ct_ResultadoProcedimentos_v1>
+      </ListaResultadoProcedimentos>
+    </ct_Resultado_v1>
+  </ListaResultados>
+</ct_LoteResultados_v1>
