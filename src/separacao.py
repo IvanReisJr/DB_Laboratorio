@@ -4,6 +4,7 @@ from datetime import datetime
 import logging
 
 import json
+from src.cleaner import save_exam_txt
 
 logger = logging.getLogger(__name__)
 
@@ -93,6 +94,14 @@ def separar_lote_xml(caminho_arquivo):
             count += 1
             new_items = True
             logger.info(f"Gerado: {nome_saida}")
+            
+            # Geração do Arquivo TXT Limpo (Backup Anual)
+            try:
+                current_year = datetime.now().strftime('%Y')
+                clean_dir = os.path.join(os.getcwd(), current_year)
+                save_exam_txt(resultado, clean_dir)
+            except Exception as clean_err:
+                logger.error(f"Erro ao gerar TXT limpo para {atendimento}: {clean_err}")
 
         if new_items:
             save_history(processed_ids)

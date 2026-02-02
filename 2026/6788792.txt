@@ -1,0 +1,10 @@
+ATENDIMENTO: 6788792
+========================================
+
+EXAME: ESTRT
+METODOLOGIA: ENZIMAIMUNOENSAIO
+--------------------
+ESTRIOL TOTAL - E3: 1,20 ng/mL
+Referência: Homens: 0,37 - 4,25 ng/mL Mulheres não gestantes: 0,63 - 4,56 ng/mL Gestantes: Semana 17 - 20: 5,49 - 25,30 ng/mL Semana 21 - 24: 6,73 - 41,14 ng/mL Semana 25 - 28: 13,40 - 50,28 ng/mL Semana 29 - 32: 17,49 - 54,91 ng/mL Semana 33 - 36: 18,52 - 61,62 ng/mL Semana 37 - 41: 21,97 - 84,83 ng/mL
+
+========================================

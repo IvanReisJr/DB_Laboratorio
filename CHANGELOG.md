@@ -15,6 +15,11 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
 - **Segurança**: Adição de `*.xml` ao `.gitignore` e remoção de arquivos XML sensíveis do repositório.
 
+## [1.5.0] - 2026-02-02
+### Adicionado
+- **Extração de Dados Limpos**: Implementação do módulo `cleaner.py` que converte os dados brutos do XML (exame, metodologia e resultados) para arquivos TXT simplificados, facilitando a leitura e auditoria.
+- **Automação**: Geração automática de TXTs na pasta anual (ex: `2026/`) durante o processo de separação de lotes.
+
 ## [1.4.2] - 2026-02-02
 ### Segurança
 - **Hardening de Credenciais**: Substituição de credenciais hardcoded em `config.py` pelo uso seguro de variáveis de ambiente (`.env`), utilizando a biblioteca `python-dotenv`.
