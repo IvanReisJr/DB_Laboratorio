@@ -1,0 +1,96 @@
+================================================================================
+GUIA DE INICIALIZAÇÃO E EXECUÇÃO DO PROJETO - DB LABORATORIO
+================================================================================
+
+Este guia passo-a-passo detalha tudo que é necessário para configurar o ambiente do zero
+e executar a automação e os testes do projeto.
+
+---
+1. PRÉ-REQUISITOS
+---
+Certifique-se de ter instalado em sua máquina:
+- Python 3.8 ou superior (Recomendado 3.12+)
+- Git (para versionamento)
+- Acesso à internet (para baixar dependências e drivers do navegador)
+
+---
+2. CONFIGURAÇÃO DO AMBIENTE VIRTUAL (VENV)
+---
+Sempre utilize um ambiente virtual para isolar as dependências do projeto.
+
+A) Abra o terminal (PowerShell ou CMD) na pasta raiz do projeto:
+   cd c:\Pietro\Projetos\DB_Laboratorio
+
+B) Crie o ambiente virtual (caso não exista):
+   python -m venv venv
+
+C) Ative o ambiente virtual:
+   * Windows (PowerShell):
+     .\venv\Scripts\activate
+   
+   * Windows (CMD):
+     venv\Scripts\activate.bat
+
+   (Você saberá que funcionou se aparecer "(venv)" no início da linha do terminal)
+
+---
+3. INSTALAÇÃO DE DEPENDÊNCIAS
+---
+Com o ambiente ativado, instale as bibliotecas necessárias e os drivers do navegador.
+
+A) Instale os pacotes Python:
+   pip install -r requirements.txt
+   
+   (Se quiser rodar os testes, garanta que o pytest está instalado):
+   pip install pytest
+
+B) Instale os navegadores do Playwright (necessário apenas na primeira vez):
+   playwright install chromium
+
+---
+4. EXECUÇÃO DA AUTOMAÇÃO
+---
+Para rodar o robô que acessa o site, baixa e processa os XMLs:
+
+Comando:
+   python main.py
+
+O que ele faz:
+1. Abre o navegador (Chromium).
+2. Faz login no portal Diagnósticos do Brasil (credenciais em src/config.py).
+3. Navega até pacientes, filtra datas e status.
+4. Baixa o XML do lote.
+5. Divide o lote em arquivos individuais na pasta de Downloads.
+
+Nota: Se quiser rodar sem ver o navegador (modo headless), edite o arquivo main.py
+e mude `headless=False` para `headless=True`.
+
+---
+5. EXECUÇÃO DOS TESTES UNITÁRIOS
+---
+Para validar se a lógica de separação de arquivos e conversão RTF está funcionando corretamente:
+
+Comando:
+   python -m pytest tests/
+
+Isso executará os testes localizados na pasta `tests/` e mostrará o resultado (Passou/Falhou) no terminal.
+
+---
+6. ESTRUTURA DE ARQUIVOS IMPORTANTE
+---
+- main.py: Arquivo principal para iniciar o robô.
+- src/config.py: Contém URLs, login e senha.
+- src/bot.py: Lógica da automação (cliques, navegação).
+- src/separacao.py: Lógica que divide o XML grande em vários menores.
+- src/CHANGELOG.md: Histórico de todas as mudanças feitas no projeto.
+- tests/: Pasta com os testes automatizados.
+
+---
+7. RESOLUÇÃO DE PROBLEMAS COMUNS
+---
+- Erro "File not found": Verifique se você está na pasta raiz correta.
+- Erro de permissão no Git Push: Verifique suas credenciais do GitHub.
+- Navegador não abre: Confirme se rodou `playwright install chromium`.
+- Scripts não rodam: Confirme se o ambiente virtual está ativo (`(venv)`).
+
+================================================================================
