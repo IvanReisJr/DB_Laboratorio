@@ -11,6 +11,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - Adição de lógica para verificar se a tabela está vazia antes de buscar checkboxes.
 - Melhoria na robustez da seleção de checkbox utilizando `.first` e tratamento de erros de API.
 - Reversão do filtro de data para 4 dias retroativos (para fins de desenvolvimento).
+- **Segurança**: Adição de `*.xml` ao `.gitignore` e remoção de arquivos XML sensíveis do repositório.
 
 ## [1.3.0] - 2026-02-02
 
