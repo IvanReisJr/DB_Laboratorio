@@ -3,6 +3,7 @@ import logging
 import os
 import glob
 import shutil
+import ctypes
 from datetime import datetime, timedelta
 from playwright.sync_api import sync_playwright
 from src.config import Config
@@ -27,12 +28,31 @@ class DBAutomator:
         self.context = None
         self.page = None
 
+    def maximize_window(self):
+        """Força a maximização da janela usando a API do Windows"""
+        try:
+            time.sleep(1) # Aguarda a janela aparecer
+            user32 = ctypes.windll.user32
+            # Tenta encontrar a janela pelo título parcial ou maximiza a janela ativa
+            hwnd = user32.GetForegroundWindow()
+            user32.ShowWindow(hwnd, 3) # SW_MAXIMIZE = 3
+            logger.info("Janela maximizada via Windows API (ctypes).")
+        except Exception as e:
+            logger.warning(f"Não foi possível maximizar via ctypes: {e}")
+
     def start(self):
         logger.info("Inicializando Playwright...")
         self.playwright = sync_playwright().start()
-        self.browser = self.playwright.chromium.launch(headless=self.headless, args=["--start-maximized"])
+        # Adiciona args de tamanho também como fallback
+        self.browser = self.playwright.chromium.launch(
+            headless=self.headless, 
+            args=["--start-maximized", "--window-size=1920,1080"]
+        )
         self.context = self.browser.new_context(viewport=None)
         self.page = self.context.new_page()
+        
+        # Força maximização
+        self.maximize_window()
 
     def step_1_access_login(self):
         """Passo 1: Acesso ao Portal"""

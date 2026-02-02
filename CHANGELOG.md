@@ -13,6 +13,12 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - Reversão do filtro de data para 4 dias retroativos (para fins de desenvolvimento).
 - **Segurança**: Adição de `*.xml` ao `.gitignore` e remoção de arquivos XML sensíveis do repositório.
 
+- **Segurança**: Adição de `*.xml` ao `.gitignore` e remoção de arquivos XML sensíveis do repositório.
+
+## [1.4.1] - 2026-02-02
+### Corrigido
+- **Interface**: Implementação de maximização forçada da janela do navegador utilizando chamadas diretas à API do Windows (`ctypes`), resolvendo inconsistências onde o argumento `--start-maximized` falhava.
+
 ## [1.4.0] - 2026-02-02
 ### Adicionado
 - **Deduplicação Inteligente**: Sistema que evita o download/processamento duplicado de exames já existentes, utilizando um histórico local (`processed_exams.json`).
