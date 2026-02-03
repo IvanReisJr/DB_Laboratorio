@@ -5,6 +5,7 @@ import logging
 
 import json
 from src.cleaner import save_exam_txt
+from utils.tasy_client import TasyClient
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +37,10 @@ def separar_lote_xml(caminho_arquivo):
         return
 
     try:
+        # Inicializa cliente Tasy
+        logger.info("Inicializando cliente Tasy para enriquecimento de dados...")
+        client = TasyClient()
+        
         # Carrega histórico de duplicatas
         processed_ids = load_history()
         logger.info(f"Histórico carregado com {len(processed_ids)} atendimentos processados.")
@@ -65,7 +70,19 @@ def separar_lote_xml(caminho_arquivo):
             if not atendimento:
                 continue
 
+            # Busca dados do paciente no Tasy (Enriquecimento)
+            try:
+                logger.info(f"Buscando dados do paciente para prescrição: {atendimento}...")
+                patient_data = client.fetch_patient_by_prescription(atendimento)
+                if patient_data:
+                    logger.info(f"Dados do Paciente (Tasy): {patient_data.get('NOME')} | CPF: {patient_data.get('CPF')}")
+                else:
+                    logger.warning(f"Paciente não encontrado no Tasy para prescrição {atendimento}.")
+            except Exception as dh_err:
+                logger.error(f"Erro ao buscar dados do paciente: {dh_err}")
+
             # Verificação de Duplicidade
+
             if atendimento in processed_ids:
                 logger.info(f"Ignorando duplicado: {atendimento}")
                 continue
