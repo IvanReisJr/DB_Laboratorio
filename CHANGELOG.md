@@ -2,6 +2,12 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [1.6.0] - 2026-02-03
+### Adicionado
+- **Integração Oracle Tasy**: Módulo `tasy_client.py` refatorado para suportar conexão Thick Mode com detecção automática de biblioteca (Windows/macOS) através da pasta `utils`.
+- **Validação de Banco**: Script `validate_db.py` criado para testar conectividade e execução de queries SQL.
+- **Dependências**: Adição de `oracledb` e `striprtf` ao `requirements.txt`.
+
 ## [1.3.1] - 2026-02-02
 ### Adicionado
 - Estratégia de seleção de checkbox por ID específico (`#Checkbox3`).
