@@ -179,6 +179,20 @@ class TasyClient:
         results = self._execute_query_and_fetch_all(sql, params)
         return results[0] if results else None
 
+    def fetch_patient_by_prescription(self, nr_prescricao: str) -> Optional[Dict[str, Any]]:
+        """
+        Busca dados do paciente baseando-se no número da prescrição.
+        """
+        sql = self._load_query("Pessoa_Fisica.sql")
+        params = {'NR_PRESCRICAO': nr_prescricao}
+        
+        results = self._execute_query_and_fetch_all(sql, params)
+        if results:
+            return results[0]
+        else:
+            logger.warning(f"Nenhum paciente encontrado para prescrição: {nr_prescricao}")
+            return None
+
     def _execute_query_and_fetch_all(self, sql: str, params: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Método auxiliar para executar SELECT e retornar lista de dicts."""
         files_list = []

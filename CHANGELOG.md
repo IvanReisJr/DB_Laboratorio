@@ -2,6 +2,11 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [1.7.0] - 2026-02-03
+### Adicionado
+- **Integração Tasy**: Implementação do método `fetch_patient_by_prescription` no `TasyClient`, permitindo buscar dados cadastrais do paciente (Nome, CPF, Prontuário) a partir do número da prescrição (extraído do nome do arquivo XML).
+- **Queries**: Criação do arquivo `querys/Pessoa_Fisica.sql` para suportar a busca de dados do paciente.
+
 ## [1.6.2] - 2026-02-03
 ### Refatorado
 - **TasyClient**: Externalização da query `fetch_single_exam` para o arquivo `querys/Resultado_Exame.sql`, completando a migração de SQL para arquivos externos.
