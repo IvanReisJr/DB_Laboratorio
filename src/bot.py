@@ -406,8 +406,8 @@ class DBAutomator:
                                 os.makedirs(backup_dir, exist_ok=True)
                                 
                                 backup_path = os.path.join(backup_dir, os.path.basename(final_path))
-                                shutil.move(final_path, backup_path)
-                                logger.info(f"Arquivo pai movido para backup: {backup_path}")
+                                shutil.copy2(final_path, backup_path)
+                                logger.info(f"Arquivo pai COPIADO para backup: {backup_path}")
                             except Exception as mv_err:
                                 logger.error(f"Erro ao mover arquivo pai para backup: {mv_err}")
                                 

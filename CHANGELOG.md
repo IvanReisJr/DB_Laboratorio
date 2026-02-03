@@ -9,6 +9,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - **Fluxo Principal**: Atualização do `src/separacao.py` para consultar automaticamente o banco de dados durante o processamento do lote, enriquecendo o log com os dados do paciente.
 ### Corrigido
 - **Bot**: Correção de erro de sintaxe JavaScript (`SyntaxError: missing )`) ao tentar clicar no checkbox de seleção de exames. O erro ocorria devido a conflito de aspas no seletor CSS utilizado.
+### Alterado
+- **Persistência de Arquivos**: O bot agora **COPIA** o XML baixado para a pasta de backup anual (ex: `2026/`) ao invés de movê-lo, garantindo que o arquivo original permaneça na pasta de entrada mensal (ex: `202602/`).
+- **Segurança**: Recuperação de credenciais do Portal a partir do histórico para o `.env`.
 
 ## [1.6.2] - 2026-02-03
 ### Refatorado
