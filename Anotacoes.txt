@@ -50,17 +50,28 @@ B) Instale os navegadores do Playwright (necessário apenas na primeira vez):
 ---
 4. EXECUÇÃO DA AUTOMAÇÃO
 ---
-Para rodar o robô que acessa o site, baixa e processa os XMLs:
+Existem duas formas de rodar o robô:
 
-Comando:
+A) Interface Gráfica (GUI) - RECOMENDADO:
+   python src/gui.py
+   - Abre uma janela moderna onde você pode iniciar/parar e ver os logs.
+
+B) Linha de Comando (Terminal):
    python main.py
 
-O que ele faz:
-1. Abre o navegador (Chromium).
-2. Faz login no portal Diagnósticos do Brasil (credenciais em src/config.py).
-3. Navega até pacientes, filtra datas e status.
-4. Baixa o XML do lote.
-5. Divide o lote em arquivos individuais na pasta de Downloads.
+---
+4.1. CONFIGURAÇÃO DE CREDENCIAIS (.env)
+---
+O projeto usa um arquivo oculto chamado `.env` para guardar senhas.
+NÃO EDITE MAIS O `config.py`!
+
+Crie um arquivo chamado `.env` na raiz e preencha conforme o `.env.example`:
+   PORTAL_SERVICE_CODE=seu_codigo
+   PORTAL_CPF=seu_cpf
+   PORTAL_PASSWORD=sua_senha
+   DB_USER=TASY
+   DB_PASSWORD=senha_tasy
+   DB_DSN=ip_do_banco:1521/service_name
 
 Nota: Se quiser rodar sem ver o navegador (modo headless), edite o arquivo main.py
 e mude `headless=False` para `headless=True`.

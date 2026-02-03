@@ -12,6 +12,9 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 ### Alterado
 - **Persistência de Arquivos**: O bot agora **COPIA** o XML baixado para a pasta de backup anual (ex: `2026/`) ao invés de movê-lo, garantindo que o arquivo original permaneça na pasta de entrada mensal (ex: `202602/`).
 - **Segurança**: Recuperação de credenciais do Portal a partir do histórico para o `.env`.
+### Novo
+- **Interface Gráfica (GUI)**: Implementação de uma interface moderna (`src/gui.py`) utilizando `customtkinter`. A GUI permite iniciar/parar a automação e visualizar logs em tempo real sem travar a janela (threading).
+- **Documentação**: Atualização completa do `README.md` e `Anotacoes.txt` com instruções para uso da GUI e configuração do arquivo `.env`.
 
 ## [1.6.2] - 2026-02-03
 ### Refatorado

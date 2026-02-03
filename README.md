@@ -54,7 +54,13 @@ Isso instalará:
 
 ## 🏃 Como Executar
 
-Para rodar a automação:
+### Opção 1: Interface Gráfica (Recomendado)
+
+```bash
+python src/gui.py
+```
+
+### Opção 2: Linha de Comando (Headless/Server)
 
 ```bash
 python main.py
