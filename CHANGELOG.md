@@ -2,6 +2,10 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [1.6.2] - 2026-02-03
+### Refatorado
+- **TasyClient**: Externalização da query `fetch_single_exam` para o arquivo `querys/Resultado_Exame.sql`, completando a migração de SQL para arquivos externos.
+
 ## [1.6.1] - 2026-02-03
 ### Refatorado
 - **TasyClient**: Implementação do método `_load_query` para leitura de arquivos `.sql` externos, removendo queries hardcoded do código Python.
