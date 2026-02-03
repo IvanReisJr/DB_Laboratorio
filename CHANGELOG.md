@@ -2,6 +2,11 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [1.6.1] - 2026-02-03
+### Refatorado
+- **TasyClient**: Implementação do método `_load_query` para leitura de arquivos `.sql` externos, removendo queries hardcoded do código Python.
+- **Queries**: Externalização da query de busca de exames para `querys/Resultados_Exames.sql`.
+
 ## [1.6.0] - 2026-02-03
 ### Adicionado
 - **Integração Oracle Tasy**: Módulo `tasy_client.py` refatorado para suportar conexão Thick Mode com detecção automática de biblioteca (Windows/macOS) através da pasta `utils`.

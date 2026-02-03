@@ -1,5 +1,6 @@
 import oracledb
 import os
+import re
 import logging
 from typing import Optional, Dict, List, Any
 from datetime import datetime
@@ -119,6 +120,34 @@ class TasyClient:
             logger.error(f"Erro na autenticação: {e}")
             return None
 
+
+
+    def _load_query(self, filename: str) -> str:
+        """
+        Lê e retorna o conteúdo de um arquivo SQL da pasta 'querys'.
+        
+        Args:
+            filename: Nome do arquivo (ex: 'Resultados_Exames.sql').
+        """
+        try:
+            # Caminho relativo: sobe um nível de 'utils' para a raiz e entra em 'querys'
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            query_path = os.path.join(base_dir, 'querys', filename)
+            
+            if not os.path.exists(query_path):
+                raise FileNotFoundError(f"Arquivo de query não encontrado: {query_path}")
+                
+            with open(query_path, 'r', encoding='utf-8') as f:
+                sql = f.read()
+                
+            # Limpeza básica de comentários (opcional, mas recomendada para oracledb)
+            sql = re.sub(r'--.*$', '', sql, flags=re.MULTILINE)
+            return sql
+            
+        except Exception as e:
+            logger.error(f"Erro ao carregar query '{filename}': {e}")
+            raise
+
     def fetch_exams(self, cd_pessoa_fisica: str) -> List[Dict[str, Any]]:
         """
         Busca todos os exames de um paciente.
@@ -129,37 +158,9 @@ class TasyClient:
         Returns:
             Lista de dicionários contendo os dados dos exames.
         """
-        sql = """
-            SELECT 
-                Obter_Desc_Exame(PPROC.NR_SEQ_EXAME) AS EXAME,
-                to_char(RL.DT_COLETA,'DD/MM/YYYY HH24:MI') AS DATA_COLETA,
-                to_char(RL.DT_ATUALIZACAO,'DD/MM/YYYY HH24:MI') AS DATA_ATUALIZACAO,         
-                INITCAP(Obter_Dados_Usuario_Opcao(RL.nm_usuario,'NP')) AS NM_PROFISSIONAL,  
-                NVL(INITCAP(CG.DS_CARGO), ' - ') AS CARGO,
-                NVL(CPROF.SG_CONSELHO, ' - ') AS DS_CONSELHO,
-                NVL(PF.DS_CODIGO_PROF,' - ') AS DS_PROFISSIONAL,
-                P.NM_PESSOA_FISICA AS NOME_PACIENTE,
-                PPROC.NR_SEQUENCIA AS ID_EXAME_ITEM, 
-                RL.NR_PRESCRICAO AS NR_PRESCRICAO,
-                PPROC.NR_SEQUENCIA AS NR_SEQUENCIA,
-                RL.DS_RESULTADO AS RESULTADO
-            FROM pessoa_fisica P 
-            INNER JOIN prescr_medica PM ON (PM.CD_PESSOA_FISICA = P.CD_PESSOA_FISICA)
-            INNER JOIN prescr_procedimento PPROC ON (PPROC.NR_PRESCRICAO = PM.NR_PRESCRICAO)
-            INNER JOIN exame_laboratorio EL ON (EL.NR_SEQ_EXAME = PPROC.NR_SEQ_EXAME)
-            INNER JOIN grupo_exame_lab GEL ON (GEL.NR_SEQUENCIA = EL.NR_SEQ_GRUPO)
-            INNER JOIN exame_lab_resultado ELR ON (ELR.NR_PRESCRICAO = PM.NR_PRESCRICAO) 
-            INNER JOIN exame_lab_result_item ELRI ON (ELR.nr_seq_resultado = ELRI.nr_seq_resultado AND ELRI.NR_SEQ_PRESCR = PPROC.NR_SEQUENCIA)
-            INNER JOIN result_laboratorio RL ON (RL.NR_PRESCRICAO = PPROC.NR_PRESCRICAO AND RL.NR_SEQ_PRESCRICAO = PPROC.NR_SEQUENCIA)
-            INNER JOIN USUARIO U ON (U.NM_USUARIO = RL.nm_usuario)
-            INNER JOIN PESSOA_FISICA PF ON (U.CD_PESSOA_FISICA = PF.CD_PESSOA_FISICA)
-            LEFT JOIN CARGO CG ON (CG.CD_CARGO = PF.CD_CARGO)
-            LEFT JOIN CONSELHO_PROFISSIONAL CPROF ON (CPROF.NR_SEQUENCIA = PF.NR_SEQ_CONSELHO)
-            WHERE ELRI.NR_SEQ_MATERIAL IS NOT NULL
-            AND (RL.ie_formato_texto IS NULL OR RL.ie_formato_texto <> 3)
-            AND P.CD_PESSOA_FISICA = :CD_PESSOA_FISICA
-            ORDER BY RL.DT_ATUALIZACAO DESC
-        """
+        # Carrega a query do arquivo externo
+        sql = self._load_query("Resultados_Exames.sql")
+        
         params = {'CD_PESSOA_FISICA': cd_pessoa_fisica}
         
         return self._execute_query_and_fetch_all(sql, params)
