@@ -75,7 +75,7 @@ def separar_lote_xml(caminho_arquivo):
                 logger.info(f"Buscando dados do paciente para prescrição: {atendimento}...")
                 patient_data = client.fetch_patient_by_prescription(atendimento)
                 if patient_data:
-                    logger.info(f"Dados do Paciente (Tasy): {patient_data.get('NOME')} | CPF: {patient_data.get('CPF')}")
+                    logger.info(f"Dados do Paciente (Tasy): {patient_data.get('NM_PESSOA_FISICA')} | CPF: {patient_data.get('NR_CPF')}")
                 else:
                     logger.warning(f"Paciente não encontrado no Tasy para prescrição {atendimento}.")
             except Exception as dh_err:

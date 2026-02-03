@@ -285,7 +285,8 @@ class DBAutomator:
                     try:
                         self.page.click(selector, timeout=2000)
                     except:
-                        self.page.evaluate(f"document.querySelector('{selector.replace('xpath=', '')}').click()")
+                        # Fix: Use double quotes for JS string to handle single quotes in selector
+                        self.page.evaluate(f'document.querySelector("{selector.replace("xpath=", "")}").click()')
                     
                     time.sleep(0.5)
                     

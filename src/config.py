@@ -10,9 +10,9 @@ class Config:
     BASE_URL_PATIENTS = "https://out-prd.diagnosticosdobrasil.com.br/Portal/MeusPacientes?In_Status=10&chave="
     
     # Credenciais obtidas de variáveis de ambiente
-    SERVICE_CODE = os.getenv("DB_SERVICE_CODE")
-    CPF = os.getenv("DB_CPF")
-    PASSWORD = os.getenv("DB_PASSWORD")
+    SERVICE_CODE = os.getenv("PORTAL_SERVICE_CODE")
+    CPF = os.getenv("PORTAL_CPF")
+    PASSWORD = os.getenv("PORTAL_PASSWORD")
     
     # Validação simples para alertar se faltar algo
     if not all([SERVICE_CODE, CPF, PASSWORD]):

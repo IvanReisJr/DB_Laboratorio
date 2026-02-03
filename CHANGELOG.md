@@ -7,6 +7,8 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - **Integração Tasy**: Implementação do método `fetch_patient_by_prescription` no `TasyClient`, permitindo buscar dados cadastrais do paciente (Nome, CPF, Prontuário) a partir do número da prescrição (extraído do nome do arquivo XML).
 - **Queries**: Criação do arquivo `querys/Pessoa_Fisica.sql` para suportar a busca de dados do paciente.
 - **Fluxo Principal**: Atualização do `src/separacao.py` para consultar automaticamente o banco de dados durante o processamento do lote, enriquecendo o log com os dados do paciente.
+### Corrigido
+- **Bot**: Correção de erro de sintaxe JavaScript (`SyntaxError: missing )`) ao tentar clicar no checkbox de seleção de exames. O erro ocorria devido a conflito de aspas no seletor CSS utilizado.
 
 ## [1.6.2] - 2026-02-03
 ### Refatorado
