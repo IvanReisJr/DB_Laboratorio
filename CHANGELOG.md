@@ -15,6 +15,8 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 ### Novo
 - **Interface Gráfica (GUI)**: Implementação de uma interface moderna (`src/gui.py`) utilizando `customtkinter`. A GUI permite iniciar/parar a automação e visualizar logs em tempo real sem travar a janela (threading).
 - **Documentação**: Atualização completa do `README.md` e `Anotacoes.txt` com instruções para uso da GUI e configuração do arquivo `.env`.
+### Corrigido
+- **GUI**: Adição de correção de `sys.path` em `src/gui.py` para permitir a execução direta do script sem erros de importação (`ModuleNotFoundError`).
 
 ## [1.6.2] - 2026-02-03
 ### Refatorado

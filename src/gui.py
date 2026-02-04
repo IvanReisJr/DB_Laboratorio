@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Adiciona o diretório raiz ao path para permitir imports absolutos (ex: from src.bot ...)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import customtkinter as ctk
 import threading
 import logging
