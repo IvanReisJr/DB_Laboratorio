@@ -17,6 +17,10 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - **Documentação**: Atualização completa do `README.md` e `Anotacoes.txt` com instruções para uso da GUI e configuração do arquivo `.env`.
 ### Corrigido
 - **GUI**: Adição de correção de `sys.path` em `src/gui.py` para permitir a execução direta do script sem erros de importação (`ModuleNotFoundError`).
+### Agendamento e Correção
+- **Agendador (Scheduler)**: Implementação de ciclo de execução contínuo em `main.py`, configurado para rodar apenas entre **08:00 e 22:00**, com intervalo de 1 hora entre execuções. Fora do horário comercial, o sistema entra em modo de espera (sleep de 30min).
+- **Bot**: Implementação de disparo forçado de eventos (`change`, `input`, `click`) via JavaScript no checkbox de seleção, resolvendo o problema onde o botão de download permanecia desabilitado mesmo após a seleção visual.
+- **Filtro**: Ajuste do filtro de data para considerar sempre o dia atual (`HOJE`), removendo o retrocesso de 4 dias utilizado em testes anteriores.
 
 ## [1.6.2] - 2026-02-03
 ### Refatorado

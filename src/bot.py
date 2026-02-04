@@ -138,11 +138,12 @@ class DBAutomator:
         """
         Passo 6: Ajuste atemporal com clique forçado, ajustado para retroagir 4 dias.
         """
-        logger.info("Iniciando ajuste atemporal do calendário (retroagindo 4 dias)...")
+        logger.info("Iniciando ajuste atemporal do calendário (HOJE)...")
         try:
-            # 1. Cálculo: Retroage 4 dias
+            # 1. Cálculo: Hoje
             today = datetime.now()
-            target_date = today - timedelta(days=4)
+            #target_date = today - timedelta(days=4)
+            target_date = today
             
             meses_pt = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
                         "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
@@ -299,6 +300,8 @@ class DBAutomator:
                         break
                     else:
                         logger.warning(f"Clicou em {selector} mas status não mudou. Forçando JS com eventos...")
+                        
+                        # Tenta forçar o estado e disparar eventos para "acordar" o botão de download
                         self.page.evaluate("""el => {
                             el.checked = true;
                             el.dispatchEvent(new Event('change', { bubbles: true }));
@@ -306,7 +309,9 @@ class DBAutomator:
                             el.dispatchEvent(new Event('click', { bubbles: true }));
                         }""", loc.element_handle())
                         
-                        time.sleep(0.5)
+                        time.sleep(1.0) # Tempo extra para o React processar
+                        
+                        # Verifica novamente
                         if loc.is_checked():
                             logger.info("Checkbox marcado via JS (com eventos).")
                             checkbox_found = True

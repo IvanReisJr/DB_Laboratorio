@@ -1,3 +1,4 @@
+from datetime import datetime
 import time
 import logging
 from src.bot import DBAutomator
@@ -7,34 +8,45 @@ logger = logging.getLogger(__name__)
 
 def main():
     MAX_ATTEMPTS = 3
-    attempt = 1
-    success = False
+    logger.info("=== AGENDADOR INICIADO (08h às 22h) ===")
     
-    while attempt <= MAX_ATTEMPTS and not success:
-        logger.info(f"=== INICIANDO TENTATIVA {attempt}/{MAX_ATTEMPTS} ===")
+    while True:
+        now = datetime.now()
+        current_hour = now.hour
         
-        try:
-            # Instancia um novo bot a cada tentativa para garantir "limpeza" completa
-            bot = DBAutomator(headless=False)
-            success = bot.run()
+        if 8 <= current_hour <= 22:
+            logger.info(f"Hora atual: {current_hour}h. Dentro do horário de execução.")
             
-            if success:
-                logger.info(f"=== SUCESSO NA TENTATIVA {attempt} ===")
-            else:
-                logger.warning(f"=== FALHA NA TENTATIVA {attempt} ===")
+            # === BLOCO DE TENTATIVAS (Lógica Original) ===
+            attempt = 1
+            success = False
+            while attempt <= MAX_ATTEMPTS and not success:
+                logger.info(f"--- TENTATIVA {attempt}/{MAX_ATTEMPTS} ---")
+                try:
+                    bot = DBAutomator(headless=False)
+                    success = bot.run()
+                    if success:
+                        logger.info(f"--- SUCESSO NA TENTATIVA {attempt} ---")
+                    else:
+                        logger.warning(f"--- FALHA NA TENTATIVA {attempt} ---")
+                except Exception as e:
+                    logger.critical(f"Erro não tratado: {e}")
                 
-        except Exception as e:
-            logger.critical(f"Erro não tratado no Main: {e}")
+                if not success:
+                    if attempt < MAX_ATTEMPTS:
+                        time.sleep(10)
+                    else:
+                        logger.error("--- TODAS AS TENTATIVAS FALHARAM ---")
+                attempt += 1
+            # =============================================
             
-        if not success:
-            if attempt < MAX_ATTEMPTS:
-                wait_time = 10
-                logger.info(f"Aguardando {wait_time} segundos antes da próxima tentativa...")
-                time.sleep(wait_time)
-            else:
-                logger.error("=== TODAS AS TENTATIVAS FALHARAM. DESISTINDO. ===")
-        
-        attempt += 1
+            # Dorme até a próxima hora cheia
+            logger.info("Dormindo 1 hora até a próxima execução...")
+            time.sleep(3600)
+            
+        else:
+            logger.info(f"Hora atual: {current_hour}h. Fora do horário (08h-22h). Dormindo...")
+            time.sleep(1800) # Dorme 30 min e verifica de novo
 
 if __name__ == "__main__":
     main()
