@@ -2,6 +2,12 @@
 
 Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 
+## [1.8.0] - 2026-02-19
+### Adicionado
+- **Resiliência (Decorators)**: Implementação do decorator `@retry_action` em `src/decorators.py` para gerenciar tentativas de execução com backoff exponencial e logging padronizado.
+- **Refatoração do Bot**: Aplicação do decorator na seleção de filtros (`step_5_filters_status`) e na exportação de XML (`step_7_search_and_download`), substituindo loops `try/except` manuais por uma abordagem declarativa.
+- **Testes**: Adição de testes unitários para o novo decorator em `tests/test_decorators.py`.
+
 ## [1.7.0] - 2026-02-03
 ### Adicionado
 - **Integração Tasy**: Implementação do método `fetch_patient_by_prescription` no `TasyClient`, permitindo buscar dados cadastrais do paciente (Nome, CPF, Prontuário) a partir do número da prescrição (extraído do nome do arquivo XML).

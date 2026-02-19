@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from playwright.sync_api import sync_playwright
 from src.config import Config
 from src.separacao import separar_lote_xml
+from src.decorators import retry_action
 
 # Configuração de Logs
 logging.basicConfig(
@@ -110,6 +111,7 @@ class DBAutomator:
             self.page.screenshot(path="erro_navegacao_home.png")
             raise
 
+    @retry_action(max_retries=3, delay=2.0, exceptions=Exception)
     def step_5_filters_status(self):
         """Passo 5: Filtro de Status para 'Completo'"""
         logger.info("Selecionando filtro de Status: Completo")
@@ -210,61 +212,11 @@ class DBAutomator:
             self.page.screenshot(path="debug_calendario_abertura.png")
             raise
 
-    def step_7_search_and_download(self):
-        """Passo 7: Pesquisa e Download do XML"""
-        logger.info("Iniciando Passo 7: Pesquisa e Download do XML...")
-        
-        # ID fornecido: Btn_Pesquisar
-        logger.info("Clicando no botão 'Pesquisar' (#Btn_Pesquisar)...")
-        # Força clique JS para garantir
-        try:
-             self.page.click("[id*='Btn_Pesquisar']", timeout=5000)
-        except:
-             self.page.evaluate("document.querySelector(\"[id*='Btn_Pesquisar']\").click()")
-
-        logger.info("Aguardando carregamento (networkidle)...")
-        self.page.wait_for_load_state("networkidle")
-        
-        logger.info("Aguardando renderização da tabela de resultados...")
-        try:
-            self.page.wait_for_selector("table", state="visible", timeout=10000)
-            logger.info("Tabela de resultados encontrada.")
-            
-            # Verificação de Conteúdo da Tabela
-            rows = self.page.locator("tbody tr")
-            # Aguarda um pouco para garantir que as linhas renderizaram (OutSystems pode renderizar a tabela e depois os dados)
-            try:
-                self.page.wait_for_selector("tbody tr", timeout=5000)
-            except:
-                pass # Pode ser que não tenha linhas mesmo
-                
-            count = rows.count()
-            if count == 0:
-                # Verifica se há mensagem de "Nenhum registro"
-                if self.page.locator("text=Nenhum registro encontrado").is_visible():
-                    logger.warning("Sistema retornou: 'Nenhum registro encontrado'. Encerrando passo.")
-                    return
-                else:
-                    logger.warning("Tabela encontrada, mas com 0 linhas. Verifique se o filtro retornou dados.")
-                    # Tira screenshot para evidência
-                    self.page.screenshot(path="debug_tabela_vazia.png")
-                    return # Não há o que baixar
-            
-            logger.info(f"Encontrados {count} registros na tabela.")
-            
-        except:
-            logger.warning("Nenhuma tabela encontrada. Verificando se há resultados...")
-            if self.page.locator("text=Nenhum registro encontrado").is_visible():
-                logger.warning("Sistema retornou: 'Nenhum registro encontrado'.")
-                return
-            else:
-                logger.warning("Tabela não apareceu e nenhuma mensagem de erro clara foi detectada.")
-                self.page.screenshot(path="debug_tabela_nao_encontrada.png")
-                return
-
-        # Tenta localizar o checkbox com múltiplos seletores
+    @retry_action(max_retries=3, delay=2.0, exceptions=Exception)
+    def _click_checkbox_with_retry(self):
+        """Tenta localizar e clicar no checkbox de exportação com retries."""
         possibles_selectors = [
-            "#Checkbox3",                                    # Prioridade máxima
+            "#Checkbox3",
             "xpath=/html/body/div[1]/div/div/div[1]/div[1]/div[3]/div/div/div[2]/div/div[3]/div[1]/div/div[1]/span/input",
             "thead input[type='checkbox']",
             "input[title='Selecionar todos']",
@@ -273,174 +225,152 @@ class DBAutomator:
             ".OSFillParent input[type='checkbox']"
         ]
         
-        checkbox_found = False
-        used_selector = None
-        
         for selector in possibles_selectors:
-            # logger.debug(f"Testando seletor: {selector}") # Reduzido para debug para limpar log
             try:
-                # Usa verificação rápida sem esperar timeout de 30s se não existir
                 if self.page.locator(selector).count() > 0 and self.page.is_visible(selector):
-                    logger.info(f"Checkbox VSÍVEL encontrado: {selector}")
-                    # Tenta clicar
+                    logger.info(f"Checkbox VISÍVEL encontrado: {selector}")
                     try:
                         self.page.click(selector, timeout=2000)
                     except:
-                        # Fix: Use double quotes for JS string to handle single quotes in selector
                         self.page.evaluate(f'document.querySelector("{selector.replace("xpath=", "")}").click()')
                     
                     time.sleep(0.5)
-                    
-                    # Validação
                     loc = self.page.locator(selector).first
+                    
                     if loc.is_checked():
                         logger.info(f"Checkbox CONFIRMADO como marcado: {selector}")
-                        checkbox_found = True
-                        used_selector = selector
-                        break
+                        return True
                     else:
-                        logger.warning(f"Clicou em {selector} mas status não mudou. Forçando JS com eventos...")
-                        
-                        # Tenta forçar o estado e disparar eventos para "acordar" o botão de download
+                        logger.warning(f"Clicou em {selector} mas status não mudou. Forçando JS...")
                         self.page.evaluate("""el => {
                             el.checked = true;
                             el.dispatchEvent(new Event('change', { bubbles: true }));
                             el.dispatchEvent(new Event('input', { bubbles: true }));
                             el.dispatchEvent(new Event('click', { bubbles: true }));
                         }""", loc.element_handle())
-                        
-                        time.sleep(1.0) # Tempo extra para o React processar
-                        
-                        # Verifica novamente
+                        time.sleep(1.0)
                         if loc.is_checked():
-                            logger.info("Checkbox marcado via JS (com eventos).")
-                            checkbox_found = True
-                            break
-            except Exception as e_check:
-                logger.warning(f"Erro ao validar checkbox {selector}: {e_check}")
+                            logger.info("Checkbox marcado via JS.")
+                            return True
+            except Exception as e:
+                logger.warning(f"Erro ao validar checkbox {selector}: {e}")
                 continue
                 
-        if checkbox_found:
-            logger.info("Checkbox acionado. Iniciando processo de download...")
-            # Lógica Robusta de Download
-            download_initiated = False
-            
-            # Tentativa 1: Botão direto por ID (O mais comum)
-            if not download_initiated:
-                try:
-                    logger.info("Tentativa 1: Clicando em #BtnResultadoXML...")
-                    with self.page.expect_download(timeout=10000) as download_info:
-                        self.page.click("#BtnResultadoXML")
-                    download_initiated = True
-                    logger.info("Download iniciado via #BtnResultadoXML.")
-                except Exception as e:
-                    logger.warning(f"Tentativa 1 falhou: {e}")
+        # Se saiu do loop sem return True, falhou
+        raise Exception("Não foi possível marcar nenhum checkbox de exportação após tentar todos os seletores.")
 
-            # Tentativa 2: Botão por Texto (XML ou Resultado)
-            if not download_initiated:
-                try:
-                    logger.info("Tentativa 2: Buscando botão por texto 'Resultado XML'...")
-                    with self.page.expect_download(timeout=10000) as download_info:
-                        self.page.get_by_role("button", name="Resultado XML").click()
-                    download_initiated = True
-                    logger.info("Download iniciado via Texto 'Resultado XML'.")
-                except Exception as e:
-                    logger.warning(f"Tentativa 2 falhou: {e}")
+    @retry_action(max_retries=3, delay=2.0, exceptions=Exception)
+    def _download_xml_with_retry(self):
+        """Tenta realizar o download do XML usando múltiplas estratégias."""
+        download_info = None
+        strategies = [
+            ("#BtnResultadoXML", "ID #BtnResultadoXML"),
+            (lambda: self.page.get_by_role("button", name="Resultado XML").click(), "Texto 'Resultado XML'"),
+            (lambda: self._strategy_menu_action(), "Menu de Ações")
+        ]
 
-            # Tentativa 3: Menu de Ações (...)
-            if not download_initiated:
-                try:
-                    logger.info("Tentativa 3: Buscando Menu de Ações (SVG) na primeira linha...")
-                    # Localiza a primeira linha e busca o link que contem o SVG (Menu)
-                    first_row = self.page.locator("table tbody tr").first
-                    menu_btn = first_row.locator("a:has(.osui-inline-svg)").first
-                    
-                    if menu_btn.is_visible():
-                        menu_btn.click()
-                        logger.info("Menu aberto. Buscando opção 'XML'...")
-                        # Aguarda o menu aparecer e clica em Resultado XML
-                        # Tenta buscar por texto exato ou parcial
-                        try:
-                            with self.page.expect_download(timeout=10000) as download_info:
-                                self.page.get_by_text("Resultado XML", exact=False).click()
-                        except:
-                             # Fallback dentro do menu: procurar qualquer coisa com XML
-                             with self.page.expect_download(timeout=10000) as download_info:
-                                self.page.locator("text=XML").click()
-
-                        download_initiated = True
-                        logger.info("Download iniciado via Menu de Ações.")
-                    else:
-                        logger.warning("Botão de menu (SVG) não encontrado na primeira linha.")
-                except Exception as e:
-                    logger.warning(f"Tentativa 3 falhou: {e}")
-
-            if download_initiated:
-                # Processamento do Download (Comum a todas as tentativas)
-                try:
-                    download = download_info.value
-                    path = download.path()
-                    logger.info(f"Arquivo baixado temporariamente em: {path}")
-                    
-                    # Nome do arquivo final
-                    subfolder = datetime.now().strftime('%Y%m')
-                    download_dir = os.path.join(os.getcwd(), subfolder)
-                    os.makedirs(download_dir, exist_ok=True)
-                    
-                    final_name = f"lote_exames_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xml"
-                    final_path = os.path.join(download_dir, final_name)
-                    
-                    # Salva o arquivo
-                    download.save_as(final_path)
-                    logger.info(f"Download concluído: {final_path}")
-                    
-                    # Validação
-                    if self.validate_xml_download(final_path):
-                        logger.info("Arquivo XML validado com sucesso.")
-                        
-                        # Processamento Adicional: Separação
-                        try:
-                            logger.info("Iniciando separação automática do lote...")
-                            separar_lote_xml(final_path)
-                            logger.info("Separação concluída.")
-                            
-                            # Movimentação do XML Pai para pasta Anual
-                            try:
-                                current_year = datetime.now().strftime('%Y')
-                                backup_dir = os.path.join(os.getcwd(), current_year)
-                                os.makedirs(backup_dir, exist_ok=True)
-                                
-                                backup_path = os.path.join(backup_dir, os.path.basename(final_path))
-                                shutil.copy2(final_path, backup_path)
-                                logger.info(f"Arquivo pai COPIADO para backup: {backup_path}")
-                            except Exception as mv_err:
-                                logger.error(f"Erro ao mover arquivo pai para backup: {mv_err}")
-                                
-                        except Exception as sep_err:
-                            logger.error(f"Erro na separação do lote: {sep_err}")
-                            
-                    else:
-                        logger.error("Falha na validação do arquivo XML.")
-                        raise Exception("Arquivo XML baixado é inválido ou vazio.")
-                        
-                except Exception as dl_err:
-                    logger.error(f"Erro ao salvar/processar o download: {dl_err}")
-                    raise Exception("Falha no processamento do download.")
-            else:
-                logger.error("TODAS as tentativas de download falharam.")
-                raise Exception("Não foi possível iniciar o download após todas as tentativas.")
-        else:
-            logger.warning("Nenhum checkbox de seleção encontrado com os seletores testados.")
-            self.page.screenshot(path="debug_step7_checkbox_not_found.png")
-            
-            # Dump do HTML da tabela para análise se falhar tudo
+        errors = []
+        for strategy, name in strategies:
             try:
-                html_content = self.page.content()
-                with open("debug_page_source.html", "w", encoding="utf-8") as f:
-                    f.write(html_content)
-                logger.info("Dump da página salvo em debug_page_source.html para análise.")
+                logger.info(f"Tentando download via: {name}")
+                with self.page.expect_download(timeout=10000) as download_info_ctx:
+                    if isinstance(strategy, str):
+                        self.page.click(strategy)
+                    else:
+                        strategy()
+                download_info = download_info_ctx.value
+                logger.info(f"Download iniciado via {name}.")
+                break
+            except Exception as e:
+                logger.warning(f"Falha na estratégia '{name}': {e}")
+                errors.append(f"{name}: {e}")
+
+        if not download_info:
+            raise Exception(f"Todas as estratégias de download falharam: {'; '.join(errors)}")
+
+        # Processar arquivo
+        path = download_info.path()
+        logger.info(f"Arquivo baixado temporariamente em: {path}")
+        
+        subfolder = datetime.now().strftime('%Y%m')
+        download_dir = os.path.join(os.getcwd(), subfolder)
+        os.makedirs(download_dir, exist_ok=True)
+        
+        final_name = f"lote_exames_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xml"
+        final_path = os.path.join(download_dir, final_name)
+        download_info.save_as(final_path)
+        logger.info(f"Download salvo em: {final_path}")
+        
+        if not self.validate_xml_download(final_path):
+            raise Exception("Arquivo XML baixado é inválido ou vazio.")
+            
+        return final_path
+
+    def _strategy_menu_action(self):
+        """Helper para estratégia de menu (usado no download)."""
+        first_row = self.page.locator("table tbody tr").first
+        menu_btn = first_row.locator("a:has(.osui-inline-svg)").first
+        if menu_btn.is_visible():
+            menu_btn.click()
+            try:
+                self.page.get_by_text("Resultado XML", exact=False).click()
             except:
-                pass
+                self.page.locator("text=XML").click()
+        else:
+            raise Exception("Botão de menu não visível.")
+
+    def step_7_search_and_download(self):
+        """Passo 7: Pesquisa e Download do XML (Refatorado)"""
+        logger.info("Iniciando Passo 7: Pesquisa e Download do XML...")
+        
+        # 1. Clicar em Pesquisar
+        logger.info("Clicando no botão 'Pesquisar'...")
+        try:
+             self.page.click("[id*='Btn_Pesquisar']", timeout=5000)
+        except:
+             self.page.evaluate("document.querySelector(\"[id*='Btn_Pesquisar']\").click()")
+
+        self.page.wait_for_load_state("networkidle")
+        
+        # 2. Verificar Resultados
+        try:
+            self.page.wait_for_selector("table", state="visible", timeout=10000)
+            rows = self.page.locator("tbody tr")
+            if rows.count() == 0:
+                if self.page.locator("text=Nenhum registro encontrado").is_visible():
+                    logger.warning("Sistema retornou: 'Nenhum registro encontrado'.")
+                    return
+                logger.warning("Tabela vazia sem mensagem de erro.")
+                self.page.screenshot(path="debug_tabela_vazia.png")
+                return
+        except:
+             logger.warning("Tabela não encontrada.")
+             if self.page.locator("text=Nenhum registro encontrado").is_visible():
+                 return
+             self.page.screenshot(path="debug_tabela_nao_encontrada.png")
+             return
+
+        # 3. Marcar Checkbox (Com Retry)
+        self._click_checkbox_with_retry()
+
+        # 4. Download (Com Retry)
+        try:
+            final_path = self._download_xml_with_retry()
+            
+            # 5. Pós-processamento (Separação e Backup)
+            logger.info("Iniciando separação automática do lote...")
+            separar_lote_xml(final_path)
+            
+            current_year = datetime.now().strftime('%Y')
+            backup_dir = os.path.join(os.getcwd(), current_year)
+            os.makedirs(backup_dir, exist_ok=True)
+            shutil.copy2(final_path, os.path.join(backup_dir, os.path.basename(final_path)))
+            logger.info("Processo concluído com sucesso.")
+            
+        except Exception as e:
+            logger.error(f"Erro fatal no processo de download/separação: {e}")
+            self.page.screenshot(path="erro_download_xml.png")
+            raise
 
 
     def validate_xml_download(self, file_path, timeout=30):
