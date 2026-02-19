@@ -20,9 +20,11 @@ Sempre utilize um ambiente virtual para isolar as dependências do projeto.
 
 A) Abra o terminal (PowerShell ou CMD) na pasta raiz do projeto:
    cd c:\Pietro\Projetos\DB_Laboratorio
+   (No macOS: cd /Users/seu_usuario/Projetos/DB_Laboratorio)
 
 B) Crie o ambiente virtual (caso não exista):
    python -m venv venv
+   (No macOS: python3 -m venv venv)
 
 C) Ative o ambiente virtual:
    * Windows (PowerShell):
@@ -30,6 +32,9 @@ C) Ative o ambiente virtual:
    
    * Windows (CMD):
      venv\Scripts\activate.bat
+
+   * macOS / Linux:
+     source venv/bin/activate
 
    (Você saberá que funcionou se aparecer "(venv)" no início da linha do terminal)
 

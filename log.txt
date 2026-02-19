@@ -1,43 +1,601 @@
-2026-02-04 09:25:58,984 - INFO - Inicializando Playwright...
-2026-02-04 09:26:00,849 - INFO - Janela maximizada via Windows API (ctypes).
-2026-02-04 09:26:00,850 - INFO - Navegando para: https://out-prd.diagnosticosdobrasil.com.br/Portal/Login
-2026-02-04 09:26:04,605 - INFO - Aguardando carregamento da Home...
-2026-02-04 09:26:13,575 - WARNING - Menu lateral não ficou visível. Forçando navegação direta...
-2026-02-04 09:26:20,380 - INFO - Página de pacientes acessada.
-2026-02-04 09:26:20,381 - INFO - Iniciando ajuste atemporal do calendário (HOJE)...
-2026-02-04 09:26:20,383 - INFO - Alvo dinâmico (4 dias atrás): Fevereiro 4, 2026
-2026-02-04 09:26:23,988 - WARNING - Calendário não abriu com ArrowDown. Tentando clique no ícone...
-2026-02-04 09:26:29,283 - INFO - Elemento de dia encontrado: Fevereiro 4, 2026. Clicando...
-2026-02-04 09:26:30,381 - INFO - Data 'DE' ajustada para HOJE com sucesso.
-2026-02-04 09:26:30,381 - INFO - Aguardando 5 segundos...
-2026-02-04 09:26:35,386 - INFO - Selecionando filtro de Status: Completo
-2026-02-04 09:26:35,427 - INFO - Aguardando opção 'Completo'...
-2026-02-04 09:26:36,529 - INFO - Filtro 'Completo' aplicado com sucesso.
-2026-02-04 09:26:36,530 - INFO - Aguardando 5 segundos...
-2026-02-04 09:26:41,533 - INFO - Iniciando Passo 7: Pesquisa e Download do XML...
-2026-02-04 09:26:41,533 - INFO - Clicando no botão 'Pesquisar' (#Btn_Pesquisar)...
-2026-02-04 09:26:41,648 - INFO - Aguardando carregamento (networkidle)...
-2026-02-04 09:26:41,652 - INFO - Aguardando renderização da tabela de resultados...
-2026-02-04 09:26:41,668 - INFO - Tabela de resultados encontrada.
-2026-02-04 09:26:41,764 - INFO - Encontrados 50 registros na tabela.
-2026-02-04 09:26:41,780 - INFO - Checkbox VISÍVEL encontrado: #Checkbox3
-2026-02-04 09:26:43,788 - WARNING - Clique direto falhou. Tentando via JS...
-2026-02-04 09:27:14,808 - WARNING - Erro ao validar checkbox #Checkbox3: Locator.is_checked: Timeout 30000ms exceeded.
+2026-02-19 09:40:37,228 - INFO - === AGENDADOR INICIADO (08h às 22h) ===
+2026-02-19 09:40:37,228 - INFO - Hora atual: 9h. Dentro do horário de execução.
+2026-02-19 09:40:37,228 - INFO - --- TENTATIVA 1/3 ---
+2026-02-19 09:40:37,228 - INFO - Inicializando Playwright...
+2026-02-19 09:40:42,166 - WARNING - Não foi possível maximizar via ctypes: module 'ctypes' has no attribute 'windll'
+2026-02-19 09:40:42,167 - INFO - Navegando para: https://out-prd.diagnosticosdobrasil.com.br/Portal/Login
+2026-02-19 09:40:45,687 - INFO - Aguardando carregamento da Home...
+2026-02-19 09:40:54,107 - WARNING - Menu lateral não ficou visível. Forçando navegação direta...
+2026-02-19 09:40:57,006 - INFO - Página de pacientes acessada.
+2026-02-19 09:40:57,006 - INFO - Iniciando ajuste atemporal do calendário (HOJE)...
+2026-02-19 09:40:57,007 - INFO - Alvo dinâmico (4 dias atrás): Fevereiro 19, 2026
+2026-02-19 09:41:00,584 - WARNING - Calendário não abriu com ArrowDown. Tentando clique no ícone...
+2026-02-19 09:41:02,152 - INFO - Elemento de dia encontrado: Fevereiro 19, 2026. Clicando...
+2026-02-19 09:41:03,226 - INFO - Data 'DE' ajustada para HOJE com sucesso.
+2026-02-19 09:41:03,226 - INFO - Aguardando 5 segundos...
+2026-02-19 09:41:08,229 - INFO - Selecionando filtro de Status: Completo
+2026-02-19 09:41:08,270 - INFO - Aguardando opção 'Completo'...
+2026-02-19 09:41:09,316 - INFO - Filtro 'Completo' aplicado com sucesso.
+2026-02-19 09:41:09,317 - INFO - Aguardando 5 segundos...
+2026-02-19 09:41:14,318 - INFO - Iniciando Passo 7: Pesquisa e Download do XML...
+2026-02-19 09:41:14,319 - INFO - Clicando no botão 'Pesquisar'...
+2026-02-19 09:41:14,417 - INFO - Checkbox VISÍVEL encontrado: #Checkbox3
+2026-02-19 09:41:45,035 - WARNING - Erro ao validar checkbox #Checkbox3: Locator.is_checked: Timeout 30000ms exceeded.
 Call log:
   - waiting for locator("#Checkbox3").first
 
-2026-02-04 09:27:14,842 - INFO - Checkbox VISÍVEL encontrado: .OSFillParent input[type='checkbox']
-2026-02-04 09:27:15,884 - INFO - Checkbox CONFIRMADO como marcado: .OSFillParent input[type='checkbox']
-2026-02-04 09:27:15,884 - INFO - Checkbox acionado. Aguardando habilitação do botão de download...
-2026-02-04 09:27:17,887 - INFO - Tentativa 1: Clicando em #BtnResultadoXML...
-2026-02-04 09:27:27,905 - WARNING - Tentativa 1 falhou: Page.wait_for_selector: Timeout 10000ms exceeded.
+2026-02-19 09:41:45,063 - INFO - Checkbox VISÍVEL encontrado: .OSFillParent input[type='checkbox']
+2026-02-19 09:41:45,607 - INFO - Checkbox CONFIRMADO como marcado: .OSFillParent input[type='checkbox']
+2026-02-19 09:41:45,607 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 09:42:15,610 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
 Call log:
-  - waiting for locator("#BtnResultadoXML:not([disabled])") to be visible
+  - waiting for locator("#BtnResultadoXML")
 
-2026-02-04 09:27:27,907 - INFO - Tentativa 2: Buscando botão por texto 'Resultado XML'...
-2026-02-04 09:27:27,916 - INFO - Tentativa 3: Buscando Menu de Ações (SVG) na primeira linha...
-2026-02-04 09:27:27,924 - WARNING - Botão de menu (SVG) não encontrado na primeira linha.
-2026-02-04 09:27:27,927 - ERROR - TODAS as tentativas de download falharam.
-2026-02-04 09:27:27,940 - CRITICAL - Falha na automação: Não foi possível iniciar o download após todas as tentativas.
-2026-02-04 09:27:28,466 - INFO - Processo encerrado.
-2026-02-04 09:27:28,466 - WARNING - Ciclo finalizado com erros/sem dados.
+2026-02-19 09:42:15,611 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 09:42:45,620 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 09:42:45,622 - INFO - Tentando download via: Menu de Ações
+2026-02-19 09:42:45,632 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 09:42:45,633 - WARNING - Tentativa 1/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 2.00s...
+2026-02-19 09:42:47,633 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 09:43:17,638 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 09:43:17,639 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 09:43:47,645 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 09:43:47,646 - INFO - Tentando download via: Menu de Ações
+2026-02-19 09:43:47,661 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 09:43:47,661 - WARNING - Tentativa 2/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 4.00s...
+2026-02-19 09:43:51,666 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 09:44:21,671 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 09:44:21,672 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 09:44:51,678 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 09:44:51,680 - INFO - Tentando download via: Menu de Ações
+2026-02-19 09:44:51,687 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 09:44:51,688 - ERROR - Todas as 3 tentativas falharam em '_download_xml_with_retry'. Erro final: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 09:44:51,688 - ERROR - Erro fatal no processo de download/separação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 09:44:51,832 - CRITICAL - Falha na automação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 09:44:51,930 - INFO - Processo encerrado.
+2026-02-19 09:44:51,930 - WARNING - --- FALHA NA TENTATIVA 1 ---
+2026-02-19 09:45:01,936 - INFO - --- TENTATIVA 2/3 ---
+2026-02-19 09:45:01,937 - INFO - Inicializando Playwright...
+2026-02-19 09:45:05,259 - WARNING - Não foi possível maximizar via ctypes: module 'ctypes' has no attribute 'windll'
+2026-02-19 09:45:05,259 - INFO - Navegando para: https://out-prd.diagnosticosdobrasil.com.br/Portal/Login
+2026-02-19 09:45:08,768 - INFO - Aguardando carregamento da Home...
+2026-02-19 09:45:17,405 - WARNING - Menu lateral não ficou visível. Forçando navegação direta...
+2026-02-19 09:45:20,100 - INFO - Página de pacientes acessada.
+2026-02-19 09:45:20,101 - INFO - Iniciando ajuste atemporal do calendário (HOJE)...
+2026-02-19 09:45:20,101 - INFO - Alvo dinâmico (4 dias atrás): Fevereiro 19, 2026
+2026-02-19 09:45:23,697 - WARNING - Calendário não abriu com ArrowDown. Tentando clique no ícone...
+2026-02-19 09:45:25,297 - INFO - Elemento de dia encontrado: Fevereiro 19, 2026. Clicando...
+2026-02-19 09:45:26,374 - INFO - Data 'DE' ajustada para HOJE com sucesso.
+2026-02-19 09:45:26,375 - INFO - Aguardando 5 segundos...
+2026-02-19 09:45:31,381 - INFO - Selecionando filtro de Status: Completo
+2026-02-19 09:45:31,437 - INFO - Aguardando opção 'Completo'...
+2026-02-19 09:45:32,495 - INFO - Filtro 'Completo' aplicado com sucesso.
+2026-02-19 09:45:32,496 - INFO - Aguardando 5 segundos...
+2026-02-19 09:45:37,501 - INFO - Iniciando Passo 7: Pesquisa e Download do XML...
+2026-02-19 09:45:37,501 - INFO - Clicando no botão 'Pesquisar'...
+2026-02-19 09:45:37,599 - INFO - Checkbox VISÍVEL encontrado: #Checkbox3
+2026-02-19 09:46:08,198 - WARNING - Erro ao validar checkbox #Checkbox3: Locator.is_checked: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#Checkbox3").first
+
+2026-02-19 09:46:08,219 - INFO - Checkbox VISÍVEL encontrado: .OSFillParent input[type='checkbox']
+2026-02-19 09:46:08,781 - INFO - Checkbox CONFIRMADO como marcado: .OSFillParent input[type='checkbox']
+2026-02-19 09:46:08,781 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 09:46:38,788 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 09:46:38,795 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 09:47:08,815 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 09:47:08,816 - INFO - Tentando download via: Menu de Ações
+2026-02-19 09:47:08,824 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 09:47:08,824 - WARNING - Tentativa 1/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 2.00s...
+2026-02-19 09:47:10,826 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 09:47:40,834 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 09:47:40,835 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 09:48:10,844 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 09:48:10,844 - INFO - Tentando download via: Menu de Ações
+2026-02-19 09:48:10,851 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 09:48:10,851 - WARNING - Tentativa 2/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 4.00s...
+2026-02-19 09:48:14,853 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 09:48:44,860 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 09:48:44,861 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 09:49:14,865 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 09:49:14,867 - INFO - Tentando download via: Menu de Ações
+2026-02-19 09:49:14,874 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 09:49:14,875 - ERROR - Todas as 3 tentativas falharam em '_download_xml_with_retry'. Erro final: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 09:49:14,875 - ERROR - Erro fatal no processo de download/separação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 09:49:15,210 - CRITICAL - Falha na automação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 09:49:15,320 - INFO - Processo encerrado.
+2026-02-19 09:49:15,320 - WARNING - --- FALHA NA TENTATIVA 2 ---
+2026-02-19 09:49:25,331 - INFO - --- TENTATIVA 3/3 ---
+2026-02-19 09:49:25,332 - INFO - Inicializando Playwright...
+2026-02-19 09:49:28,257 - WARNING - Não foi possível maximizar via ctypes: module 'ctypes' has no attribute 'windll'
+2026-02-19 09:49:28,257 - INFO - Navegando para: https://out-prd.diagnosticosdobrasil.com.br/Portal/Login
+2026-02-19 09:49:31,667 - INFO - Aguardando carregamento da Home...
+2026-02-19 09:49:40,057 - WARNING - Menu lateral não ficou visível. Forçando navegação direta...
+2026-02-19 09:49:42,701 - INFO - Página de pacientes acessada.
+2026-02-19 09:49:42,702 - INFO - Iniciando ajuste atemporal do calendário (HOJE)...
+2026-02-19 09:49:42,702 - INFO - Alvo dinâmico (4 dias atrás): Fevereiro 19, 2026
+2026-02-19 09:49:46,302 - WARNING - Calendário não abriu com ArrowDown. Tentando clique no ícone...
+2026-02-19 09:49:47,901 - INFO - Elemento de dia encontrado: Fevereiro 19, 2026. Clicando...
+2026-02-19 09:49:48,979 - INFO - Data 'DE' ajustada para HOJE com sucesso.
+2026-02-19 09:49:48,980 - INFO - Aguardando 5 segundos...
+2026-02-19 09:49:53,989 - INFO - Selecionando filtro de Status: Completo
+2026-02-19 09:49:54,035 - INFO - Aguardando opção 'Completo'...
+2026-02-19 09:49:55,099 - INFO - Filtro 'Completo' aplicado com sucesso.
+2026-02-19 09:49:55,100 - INFO - Aguardando 5 segundos...
+2026-02-19 09:50:00,102 - INFO - Iniciando Passo 7: Pesquisa e Download do XML...
+2026-02-19 09:50:00,102 - INFO - Clicando no botão 'Pesquisar'...
+2026-02-19 09:50:00,208 - INFO - Checkbox VISÍVEL encontrado: #Checkbox3
+2026-02-19 09:50:30,818 - WARNING - Erro ao validar checkbox #Checkbox3: Locator.is_checked: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#Checkbox3").first
+
+2026-02-19 09:50:30,844 - INFO - Checkbox VISÍVEL encontrado: .OSFillParent input[type='checkbox']
+2026-02-19 09:50:31,418 - INFO - Checkbox CONFIRMADO como marcado: .OSFillParent input[type='checkbox']
+2026-02-19 09:50:31,418 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 09:51:01,424 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 09:51:01,426 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 09:51:31,434 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 09:51:31,435 - INFO - Tentando download via: Menu de Ações
+2026-02-19 09:51:31,442 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 09:51:31,443 - WARNING - Tentativa 1/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 2.00s...
+2026-02-19 09:51:33,449 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 09:52:03,456 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 09:52:03,458 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 09:52:33,466 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 09:52:33,467 - INFO - Tentando download via: Menu de Ações
+2026-02-19 09:52:33,475 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 09:52:33,475 - WARNING - Tentativa 2/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 4.00s...
+2026-02-19 09:52:37,481 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 09:53:07,496 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 09:53:07,497 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 09:53:37,501 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 09:53:37,502 - INFO - Tentando download via: Menu de Ações
+2026-02-19 09:53:37,510 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 09:53:37,510 - ERROR - Todas as 3 tentativas falharam em '_download_xml_with_retry'. Erro final: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 09:53:37,511 - ERROR - Erro fatal no processo de download/separação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 09:53:37,818 - CRITICAL - Falha na automação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 09:53:37,899 - INFO - Processo encerrado.
+2026-02-19 09:53:37,899 - WARNING - --- FALHA NA TENTATIVA 3 ---
+2026-02-19 09:53:37,899 - ERROR - --- TODAS AS TENTATIVAS FALHARAM ---
+2026-02-19 09:53:37,899 - INFO - Dormindo 1 hora até a próxima execução...
+2026-02-19 10:53:37,907 - INFO - Hora atual: 10h. Dentro do horário de execução.
+2026-02-19 10:53:37,909 - INFO - --- TENTATIVA 1/3 ---
+2026-02-19 10:53:37,909 - INFO - Inicializando Playwright...
+2026-02-19 10:53:41,875 - WARNING - Não foi possível maximizar via ctypes: module 'ctypes' has no attribute 'windll'
+2026-02-19 10:53:41,876 - INFO - Navegando para: https://out-prd.diagnosticosdobrasil.com.br/Portal/Login
+2026-02-19 10:53:45,403 - INFO - Aguardando carregamento da Home...
+2026-02-19 10:53:53,983 - WARNING - Menu lateral não ficou visível. Forçando navegação direta...
+2026-02-19 10:53:58,091 - INFO - Página de pacientes acessada.
+2026-02-19 10:53:58,091 - INFO - Iniciando ajuste atemporal do calendário (HOJE)...
+2026-02-19 10:53:58,091 - INFO - Alvo dinâmico (4 dias atrás): Fevereiro 19, 2026
+2026-02-19 10:54:01,711 - WARNING - Calendário não abriu com ArrowDown. Tentando clique no ícone...
+2026-02-19 10:54:03,283 - INFO - Elemento de dia encontrado: Fevereiro 19, 2026. Clicando...
+2026-02-19 10:54:04,361 - INFO - Data 'DE' ajustada para HOJE com sucesso.
+2026-02-19 10:54:04,363 - INFO - Aguardando 5 segundos...
+2026-02-19 10:54:09,365 - INFO - Selecionando filtro de Status: Completo
+2026-02-19 10:54:09,402 - INFO - Aguardando opção 'Completo'...
+2026-02-19 10:54:10,482 - INFO - Filtro 'Completo' aplicado com sucesso.
+2026-02-19 10:54:10,482 - INFO - Aguardando 5 segundos...
+2026-02-19 10:54:15,490 - INFO - Iniciando Passo 7: Pesquisa e Download do XML...
+2026-02-19 10:54:15,491 - INFO - Clicando no botão 'Pesquisar'...
+2026-02-19 10:54:15,594 - INFO - Checkbox VISÍVEL encontrado: #Checkbox3
+2026-02-19 10:54:46,152 - WARNING - Erro ao validar checkbox #Checkbox3: Locator.is_checked: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#Checkbox3").first
+
+2026-02-19 10:54:46,194 - INFO - Checkbox VISÍVEL encontrado: .OSFillParent input[type='checkbox']
+2026-02-19 10:54:46,768 - INFO - Checkbox CONFIRMADO como marcado: .OSFillParent input[type='checkbox']
+2026-02-19 10:54:46,768 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 10:55:16,773 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 10:55:16,775 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 10:55:46,781 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 10:55:46,782 - INFO - Tentando download via: Menu de Ações
+2026-02-19 10:55:46,791 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 10:55:46,792 - WARNING - Tentativa 1/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 2.00s...
+2026-02-19 10:55:48,802 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 10:56:18,809 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 10:56:18,810 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 10:56:48,819 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 10:56:48,819 - INFO - Tentando download via: Menu de Ações
+2026-02-19 10:56:48,827 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 10:56:48,828 - WARNING - Tentativa 2/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 4.00s...
+2026-02-19 10:56:52,836 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 10:57:22,847 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 10:57:22,849 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 10:57:52,855 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 10:57:52,856 - INFO - Tentando download via: Menu de Ações
+2026-02-19 10:57:52,863 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 10:57:52,864 - ERROR - Todas as 3 tentativas falharam em '_download_xml_with_retry'. Erro final: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 10:57:52,864 - ERROR - Erro fatal no processo de download/separação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 10:57:53,198 - CRITICAL - Falha na automação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 10:57:53,329 - INFO - Processo encerrado.
+2026-02-19 10:57:53,329 - WARNING - --- FALHA NA TENTATIVA 1 ---
+2026-02-19 10:58:03,339 - INFO - --- TENTATIVA 2/3 ---
+2026-02-19 10:58:03,340 - INFO - Inicializando Playwright...
+2026-02-19 10:58:06,258 - WARNING - Não foi possível maximizar via ctypes: module 'ctypes' has no attribute 'windll'
+2026-02-19 10:58:06,258 - INFO - Navegando para: https://out-prd.diagnosticosdobrasil.com.br/Portal/Login
+2026-02-19 10:58:09,767 - INFO - Aguardando carregamento da Home...
+2026-02-19 10:58:16,859 - WARNING - Menu lateral não ficou visível. Forçando navegação direta...
+2026-02-19 10:58:19,695 - INFO - Página de pacientes acessada.
+2026-02-19 10:58:19,697 - INFO - Iniciando ajuste atemporal do calendário (HOJE)...
+2026-02-19 10:58:19,697 - INFO - Alvo dinâmico (4 dias atrás): Fevereiro 19, 2026
+2026-02-19 10:58:23,288 - WARNING - Calendário não abriu com ArrowDown. Tentando clique no ícone...
+2026-02-19 10:58:24,852 - INFO - Elemento de dia encontrado: Fevereiro 19, 2026. Clicando...
+2026-02-19 10:58:25,926 - INFO - Data 'DE' ajustada para HOJE com sucesso.
+2026-02-19 10:58:25,926 - INFO - Aguardando 5 segundos...
+2026-02-19 10:58:30,928 - INFO - Selecionando filtro de Status: Completo
+2026-02-19 10:58:30,971 - INFO - Aguardando opção 'Completo'...
+2026-02-19 10:58:32,030 - INFO - Filtro 'Completo' aplicado com sucesso.
+2026-02-19 10:58:32,030 - INFO - Aguardando 5 segundos...
+2026-02-19 10:58:37,036 - INFO - Iniciando Passo 7: Pesquisa e Download do XML...
+2026-02-19 10:58:37,036 - INFO - Clicando no botão 'Pesquisar'...
+2026-02-19 10:58:37,146 - INFO - Checkbox VISÍVEL encontrado: #Checkbox3
+2026-02-19 10:59:07,698 - WARNING - Erro ao validar checkbox #Checkbox3: Locator.is_checked: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#Checkbox3").first
+
+2026-02-19 10:59:07,721 - INFO - Checkbox VISÍVEL encontrado: .OSFillParent input[type='checkbox']
+2026-02-19 10:59:08,268 - INFO - Checkbox CONFIRMADO como marcado: .OSFillParent input[type='checkbox']
+2026-02-19 10:59:08,268 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 10:59:38,271 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 10:59:38,272 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 11:00:08,277 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 11:00:08,278 - INFO - Tentando download via: Menu de Ações
+2026-02-19 11:00:08,283 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 11:00:08,283 - WARNING - Tentativa 1/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 2.00s...
+2026-02-19 11:00:10,291 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 11:00:40,298 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 11:00:40,299 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 11:01:10,305 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 11:01:10,307 - INFO - Tentando download via: Menu de Ações
+2026-02-19 11:01:10,325 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 11:01:10,326 - WARNING - Tentativa 2/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 4.00s...
+2026-02-19 11:01:14,336 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 11:01:44,344 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 11:01:44,346 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 11:02:14,350 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 11:02:14,352 - INFO - Tentando download via: Menu de Ações
+2026-02-19 11:02:14,359 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 11:02:14,360 - ERROR - Todas as 3 tentativas falharam em '_download_xml_with_retry'. Erro final: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 11:02:14,360 - ERROR - Erro fatal no processo de download/separação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 11:02:14,673 - CRITICAL - Falha na automação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 11:02:14,779 - INFO - Processo encerrado.
+2026-02-19 11:02:14,779 - WARNING - --- FALHA NA TENTATIVA 2 ---
+2026-02-19 11:02:24,789 - INFO - --- TENTATIVA 3/3 ---
+2026-02-19 11:02:24,789 - INFO - Inicializando Playwright...
+2026-02-19 11:02:27,425 - WARNING - Não foi possível maximizar via ctypes: module 'ctypes' has no attribute 'windll'
+2026-02-19 11:02:27,427 - INFO - Navegando para: https://out-prd.diagnosticosdobrasil.com.br/Portal/Login
+2026-02-19 11:02:30,930 - INFO - Aguardando carregamento da Home...
+2026-02-19 11:02:39,187 - WARNING - Menu lateral não ficou visível. Forçando navegação direta...
+2026-02-19 11:02:42,068 - INFO - Página de pacientes acessada.
+2026-02-19 11:02:42,068 - INFO - Iniciando ajuste atemporal do calendário (HOJE)...
+2026-02-19 11:02:42,068 - INFO - Alvo dinâmico (4 dias atrás): Fevereiro 19, 2026
+2026-02-19 11:02:45,688 - WARNING - Calendário não abriu com ArrowDown. Tentando clique no ícone...
+2026-02-19 11:02:47,271 - INFO - Elemento de dia encontrado: Fevereiro 19, 2026. Clicando...
+2026-02-19 11:02:48,344 - INFO - Data 'DE' ajustada para HOJE com sucesso.
+2026-02-19 11:02:48,344 - INFO - Aguardando 5 segundos...
+2026-02-19 11:02:53,348 - INFO - Selecionando filtro de Status: Completo
+2026-02-19 11:02:53,400 - INFO - Aguardando opção 'Completo'...
+2026-02-19 11:02:54,465 - INFO - Filtro 'Completo' aplicado com sucesso.
+2026-02-19 11:02:54,466 - INFO - Aguardando 5 segundos...
+2026-02-19 11:02:59,476 - INFO - Iniciando Passo 7: Pesquisa e Download do XML...
+2026-02-19 11:02:59,477 - INFO - Clicando no botão 'Pesquisar'...
+2026-02-19 11:02:59,610 - INFO - Checkbox VISÍVEL encontrado: #Checkbox3
+2026-02-19 11:03:30,213 - WARNING - Erro ao validar checkbox #Checkbox3: Locator.is_checked: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#Checkbox3").first
+
+2026-02-19 11:03:30,240 - INFO - Checkbox VISÍVEL encontrado: .OSFillParent input[type='checkbox']
+2026-02-19 11:03:30,802 - INFO - Checkbox CONFIRMADO como marcado: .OSFillParent input[type='checkbox']
+2026-02-19 11:03:30,802 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 11:04:00,808 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 11:04:00,809 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 11:04:30,815 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 11:04:30,816 - INFO - Tentando download via: Menu de Ações
+2026-02-19 11:04:30,823 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 11:04:30,823 - WARNING - Tentativa 1/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 2.00s...
+2026-02-19 11:04:32,831 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 11:05:02,841 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 11:05:02,842 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 11:05:32,849 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 11:05:32,851 - INFO - Tentando download via: Menu de Ações
+2026-02-19 11:05:32,858 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 11:05:32,859 - WARNING - Tentativa 2/3 falhou em '_download_xml_with_retry': Exception: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.. Tentando novamente em 4.00s...
+2026-02-19 11:05:36,861 - INFO - Tentando download via: ID #BtnResultadoXML
+2026-02-19 11:06:06,868 - WARNING - Falha na estratégia 'ID #BtnResultadoXML': Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+
+2026-02-19 11:06:06,870 - INFO - Tentando download via: Texto 'Resultado XML'
+2026-02-19 11:06:36,874 - WARNING - Falha na estratégia 'Texto 'Resultado XML'': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+
+2026-02-19 11:06:36,876 - INFO - Tentando download via: Menu de Ações
+2026-02-19 11:06:36,883 - WARNING - Falha na estratégia 'Menu de Ações': Botão de menu não visível.
+2026-02-19 11:06:36,884 - ERROR - Todas as 3 tentativas falharam em '_download_xml_with_retry'. Erro final: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 11:06:36,884 - ERROR - Erro fatal no processo de download/separação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 11:06:37,170 - CRITICAL - Falha na automação: Todas as estratégias de download falharam: ID #BtnResultadoXML: Page.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("#BtnResultadoXML")
+; Texto 'Resultado XML': Locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for get_by_role("button", name="Resultado XML")
+; Menu de Ações: Botão de menu não visível.
+2026-02-19 11:06:37,281 - INFO - Processo encerrado.
+2026-02-19 11:06:37,281 - WARNING - --- FALHA NA TENTATIVA 3 ---
+2026-02-19 11:06:37,281 - ERROR - --- TODAS AS TENTATIVAS FALHARAM ---
+2026-02-19 11:06:37,281 - INFO - Dormindo 1 hora até a próxima execução...
