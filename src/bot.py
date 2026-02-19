@@ -360,6 +360,17 @@ class DBAutomator:
 
         # 3. Marcar Checkbox (Com Retry)
         self._click_checkbox_with_retry()
+        
+        # 3.1 Verificação de Segurança: O botão habilitou?
+        # Se não habilitou, provavelmente a tabela está visualmente preenchida (ex: headers) mas vazia de dados
+        try:
+            btn = self.page.locator("#BtnResultadoXML")
+            if btn.is_disabled():
+                logger.warning("Botão de Download continua desabilitado após seleção. Assumindo ausência de dados reais.")
+                self.page.screenshot(path="debug_botao_desabilitado.png")
+                return
+        except Exception as e:
+            logger.warning(f"Erro ao verificar estado do botão: {e}")
 
         # 4. Download (Com Retry)
         try:

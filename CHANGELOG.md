@@ -11,6 +11,7 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - **Dependências**: Adição de `streamlit` ao `requirements.txt` e correção de encoding do arquivo.
 ### Corrigido
 - **Tratamento de Sem Resultados**: Implementação de verificação prévia da tabela de resultados no `step_7`. Se a tabela estiver vazia ou contiver "Nenhum registro", o ciclo é encerrado com sucesso (sem erros), evitando falhas de timeout no download.
+- **Botão Desabilitado**: Adição de verificação secundária para o botão de download. Mesmo se o checkbox for marcado, se o botão permanecer desabilitado, o sistema assume ausência de dados e finaliza com sucesso (para fins de agendamento).
 
 ## [1.7.0] - 2026-02-03
 ### Adicionado
