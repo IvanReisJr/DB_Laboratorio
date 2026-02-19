@@ -9,6 +9,8 @@ Todas as mudanças notáveis neste projeto serão documentadas neste arquivo.
 - **Refatoração do Bot**: Aplicação do decorator na seleção de filtros (`step_5_filters_status`) e na exportação de XML (`step_7_search_and_download`), substituindo loops `try/except` manuais por uma abordagem declarativa.
 - **Testes**: Adição de testes unitários para o novo decorator em `tests/test_decorators.py`.
 - **Dependências**: Adição de `streamlit` ao `requirements.txt` e correção de encoding do arquivo.
+### Corrigido
+- **Tratamento de Sem Resultados**: Implementação de verificação prévia da tabela de resultados no `step_7`. Se a tabela estiver vazia ou contiver "Nenhum registro", o ciclo é encerrado com sucesso (sem erros), evitando falhas de timeout no download.
 
 ## [1.7.0] - 2026-02-03
 ### Adicionado

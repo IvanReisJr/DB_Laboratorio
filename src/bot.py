@@ -336,16 +336,24 @@ class DBAutomator:
         try:
             self.page.wait_for_selector("table", state="visible", timeout=10000)
             rows = self.page.locator("tbody tr")
-            if rows.count() == 0:
-                if self.page.locator("text=Nenhum registro encontrado").is_visible():
-                    logger.warning("Sistema retornou: 'Nenhum registro encontrado'.")
-                    return
-                logger.warning("Tabela vazia sem mensagem de erro.")
-                self.page.screenshot(path="debug_tabela_vazia.png")
+            
+            # Conta visual de linhas
+            count = rows.count()
+            
+            if count == 0:
+                logger.warning("Tabela sem linhas (tbody vazio).")
                 return
-        except:
-             logger.warning("Tabela não encontrada.")
+
+            # Verifica texto da primeira linha para 'Nenhum registro'
+            first_row_text = rows.first.inner_text().lower()
+            if "nenhum registro" in first_row_text or "não encontrado" in first_row_text:
+                logger.warning(f"Sistema retornou: '{first_row_text}'. Encerrando ciclo sem erros.")
+                return
+
+        except Exception as e:
+             logger.warning(f"Tabela não encontrada ou estrutura diferente: {e}")
              if self.page.locator("text=Nenhum registro encontrado").is_visible():
+                 logger.warning("Mensagem 'Nenhum registro encontrado' detectada fora da tabela.")
                  return
              self.page.screenshot(path="debug_tabela_nao_encontrada.png")
              return
